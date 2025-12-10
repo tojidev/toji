@@ -1,0 +1,77 @@
+/* ---------- Graphik Regular (400) ---------- */
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Regular.eot"); /* IE9 Compat Modes */
+  src: url("/fonts/Graphik-Regular.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Graphik-Regular.woff2") format("woff2"),
+    url("/fonts/Graphik-Regular.woff") format("woff"),
+    url("/fonts/Graphik-Regular.ttf") format("truetype"),
+    url("/fonts/Graphik-Regular.svg#Graphik") format("svg");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Graphik Medium (500) ---------- */
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Medium.eot");
+  src: url("/fonts/Graphik-Medium.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Graphik-Medium.woff2") format("woff2"),
+    url("/fonts/Graphik-Medium.woff") format("woff"),
+    url("/fonts/Graphik-Medium.ttf") format("truetype"),
+    url("/fonts/Graphik-Medium.svg#Graphik") format("svg");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Graphik Semibold (600) ---------- */
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Semibold.eot");
+  src: url("/fonts/Graphik-Semibold.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Graphik-Semibold.woff2") format("woff2"),
+    url("/fonts/Graphik-Semibold.woff") format("woff"),
+    url("/fonts/Graphik-Semibold.ttf") format("truetype"),
+    url("/fonts/Graphik-Semibold.svg#Graphik") format("svg");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Graphik Bold (700) ---------- */
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Bold.eot");
+  src: url("/fonts/Graphik-Bold.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Graphik-Bold.woff2") format("woff2"),
+    url("/fonts/Graphik-Bold.woff") format("woff"),
+    url("/fonts/Graphik-Bold.ttf") format("truetype"),
+    url("/fonts/Graphik-Bold.svg#Graphik") format("svg");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- FreightTextPro Book Italic (400 italic) ---------- */
+@font-face {
+  font-family: "FreightTextPro";
+  src: url("/fonts/FreightTextProBook-Italic.eot");
+  src: url("/fonts/FreightTextProBook-Italic.eot?#iefix")
+      format("embedded-opentype"),
+    url("/fonts/FreightTextProBook-Italic.woff2") format("woff2"),
+    url("/fonts/FreightTextProBook-Italic.woff") format("woff"),
+    url("/fonts/FreightTextProBook-Italic.otf") format("opentype"),
+    url("/fonts/FreightTextProBook-Italic.svg#FreightTextPro") format("svg");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---------- Fallback system stack when Graphik missing ---------- */
+:root {
+  --ui-font: "Graphik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --serif-font: "FreightTextPro", Georgia, "Times New Roman", Times, serif;
+}
