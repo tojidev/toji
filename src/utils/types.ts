@@ -15,24 +15,24 @@ export type WorkItemsProps = {
   pageLink: string;
 };
 
-export type UserParams = {
+export type UserParams = Promise<{
   userId: string;
-};
+}>;
 
-export type ClientParams = {
+export type ClientParams = Promise<{
   clientId: string;
-};
+}>;
 
-export type WorkItemParams = {
+export type WorkItemParams = Promise<{
   clientId: string;
   workItemId: string;
-};
+}>;
 
-export type WorkItemDetailParams = {
+export type WorkItemDetailParams = Promise<{
   clientId: string;
   workItemId: string;
   workDetailId: string;
-};
+}>;
 
 export type ClientWorkItem = {
   workItemImage: string;
