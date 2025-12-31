@@ -13,9 +13,9 @@ export default function PageLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="mx-auto px-4">
+    <div className="min-h-screen flex flex-col px-4">
       <Header />
-      <main className="">{children}</main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );

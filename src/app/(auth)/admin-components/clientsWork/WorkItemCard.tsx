@@ -28,7 +28,7 @@ const WorkItemCard: React.FC<WorkItemCardProps> = ({
       <div>
         {/* Name & Description */}
         <div className="flex-1 min-w-0">
-          <p className="font-medium text-gray-800 truncate">
+          <p className="font-medium text-gray-800 truncate text-wrap">
             {workItem.workItemDescription}
           </p>
           <p className="text-sm text-gray-500 truncate">

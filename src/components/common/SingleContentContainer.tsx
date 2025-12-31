@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { WorkDetail, WorkItemTypes } from "@/utils/workTypes";
+import BackButton from "./BackButton";
 
 const SingleContentContainer: React.FC<{
   workItemData: WorkItemTypes;
@@ -49,6 +50,7 @@ const SingleContentContainer: React.FC<{
             )}
           </div>
         ))}
+        <BackButton />
       </div>
     </div>
   );

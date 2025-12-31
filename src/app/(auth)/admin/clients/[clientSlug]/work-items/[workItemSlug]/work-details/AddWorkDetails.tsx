@@ -24,16 +24,18 @@ const workItemSchema = Yup.object({
 /* -----------------------------
    Initial Values
 ------------------------------ */
-const initialValues: AddWorkDetailFormValues = {
-  workDetailName: "",
-  workDetailImage: "",
-  workDetailDoubleSection: false,
-  workDetailDescription: "",
-  clientIdRef: "",
-  workItemIdRef: "",
-  workDetailSlug: "",
-};
-
+function formInitialValue(clientName: string, workItemName: string) {
+  const initialValues: AddWorkDetailFormValues = {
+    workDetailName: "",
+    workDetailImage: "",
+    workDetailDoubleSection: false,
+    workDetailDescription: "",
+    clientIdRef: clientName,
+    workItemIdRef: workItemName,
+    workDetailSlug: "",
+  };
+  return initialValues;
+}
 /* -----------------------------
    Component
 ------------------------------ */
@@ -43,10 +45,10 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
 }) => {
   const { post, loading } = useAxios();
 
-  useEffect(() => {
-    initialValues.clientIdRef = clientId;
-    initialValues.workItemIdRef = workItemId;
-  }, [clientId, workItemId]);
+  // useEffect(() => {
+  //   initialValues.clientIdRef = clientId;
+  //   initialValues.workItemIdRef = workItemId;
+  // }, [clientId, workItemId]);
 
   const handleSubmit = async (
     values: AddWorkDetailFormValues,
@@ -69,7 +71,7 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
       </h2>
 
       <Formik
-        initialValues={initialValues}
+        initialValues={formInitialValue(clientId, workItemId)}
         validationSchema={workItemSchema}
         onSubmit={handleSubmit}
       >
@@ -169,11 +171,11 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
             {/* Slug */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Work item path name
+                Work item access path name
               </label>
               <Field
                 name="workDetailSlug"
-                placeholder="example-work-item"
+                placeholder="Work item access path name"
                 className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
               <ErrorMessage
@@ -183,42 +185,8 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
               />
             </div>
 
-            {/* Slug */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Work item path name
-              </label>
-              <Field
-                name="workItemIdRef"
-                value={workItemId}
-                disabled={true}
-                placeholder="example-work-item"
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
-              <ErrorMessage
-                name="workItemIdRef"
-                component="p"
-                className="text-sm text-red-500 mt-1"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Client Ref
-              </label>
-              <Field
-                name="clientIdRef"
-                value={clientId}
-                disabled={true}
-                placeholder="example-work-item"
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
-              <ErrorMessage
-                name="clientIdRef"
-                component="p"
-                className="text-sm text-red-500 mt-1"
-              />
-            </div>
+            <Field type="hidden" name="workItemIdRef" />
+            <Field type="hidden" name="clientIdRef" />
 
             {/* Submit */}
             <button
@@ -235,9 +203,6 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
             >
               {"Clear"}
             </button>
-            <div className="overflow-x-scroll">
-              {JSON.stringify(initialValues)}
-            </div>
           </Form>
         )}
       </Formik>

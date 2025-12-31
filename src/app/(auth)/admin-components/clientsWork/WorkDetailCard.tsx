@@ -33,7 +33,7 @@ const WorkDetailCard: React.FC<WorkItemCardProps> = ({
           <p className="font-medium text-gray-800 truncate">
             {workDetail.workDetailName}
           </p>
-          <p className="text-sm text-gray-500 truncate">
+          <p className="text-sm text-gray-500 truncate text-wrap">
             {workDetail.workDetailDescription}
           </p>
         </div>

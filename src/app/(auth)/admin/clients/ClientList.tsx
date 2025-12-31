@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAxios } from "@/hooks/useAxios";
 import ClientCard from "../../admin-components/clientsWork/ClientCard";
 import { ClientType } from "@/utils/workTypes";
+import BackButton from "@/components/common/BackButton";
 
 const ClientList: React.FC = () => {
   const { get, loading } = useAxios();
@@ -40,6 +41,7 @@ const ClientList: React.FC = () => {
           onDelete={(id) => console.log("Delete", id)}
         />
       ))}
+      <BackButton />
     </div>
   );
 };

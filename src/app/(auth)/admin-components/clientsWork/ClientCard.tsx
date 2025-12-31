@@ -39,7 +39,7 @@ const ClientCard: React.FC<ClientCardProps> = ({
         <p className="font-medium text-gray-800 truncate">
           {client.clientName}
         </p>
-        <p className="text-sm text-gray-500 truncate">
+        <p className="text-sm text-gray-500 truncate text-wrap">
           {client.clientDescriptionText}
         </p>
       </div>

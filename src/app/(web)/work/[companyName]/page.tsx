@@ -28,8 +28,6 @@ export default async function ClientPage({
           />
         }
       />
-
-      <div>this client item page</div>
     </>
   );
 }
