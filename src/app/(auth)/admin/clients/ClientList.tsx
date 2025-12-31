@@ -2,16 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { useAxios } from "@/hooks/useAxios";
 import ClientCard from "../../admin-components/clientsWork/ClientCard";
-import { Client } from "@/utils/workTypes";
+import { ClientType } from "@/utils/workTypes";
 
 const ClientList: React.FC = () => {
   const { get, loading } = useAxios();
-  const [clients, setClients] = useState<Client[]>([]);
+  const [clients, setClients] = useState<ClientType[]>([]);
 
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const workData = await get<Client[]>("/works");
+        const workData = await get<ClientType[]>("/works");
         setClients(workData);
         console.log("Clients fetched:", workData);
       } catch (error) {
