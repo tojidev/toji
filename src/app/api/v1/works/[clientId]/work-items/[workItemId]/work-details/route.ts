@@ -37,20 +37,20 @@ export async function POST(request: NextRequest) {
     workDetailName,
     workDetailImage,
     workDetailDoubleSection,
-    workDetailText,
+    workDetailDescription,
+    clientIdRef,
     workItemIdRef,
     workDetailSlug,
-    clientIdRef,
   } = await request.json();
 
   const workItemDetail = new WorkItemDetail({
     workDetailName,
     workDetailImage,
     workDetailDoubleSection,
-    workDetailText,
+    workDetailDescription,
+    clientIdRef,
     workItemIdRef,
     workDetailSlug,
-    clientIdRef,
   });
 
   try {

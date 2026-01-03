@@ -43,7 +43,9 @@ const WorkDetailCard: React.FC<WorkItemCardProps> = ({
       </td>
 
       <td className="p-4 border-b border-slate-200 py-5  whitespace-wrap overflow-hidden text-ellipsis max-w-sm">
-        <h3>Double Section = {workDetail.workDetailDoubleSection}</h3>
+        <h3>
+          Double Section = {workDetail.workDetailDoubleSection.toString()}
+        </h3>
         <p className="text-sm text-slate-500 ">
           {workDetail.workDetailDescription}
         </p>

@@ -38,7 +38,7 @@ export async function PUT(
     workDetailName,
     workDetailImage,
     workDetailDoubleSection,
-    workDetailText,
+    workDetailDescription,
     workDetailSlug,
   } = await request.json();
 
@@ -49,11 +49,10 @@ export async function PUT(
     workDetailFind.workDetailName = workDetailName;
     workDetailFind.workDetailImage = workDetailImage;
     workDetailFind.workDetailDoubleSection = workDetailDoubleSection;
-    workDetailFind.workDetailText = workDetailText;
-    workDetailFind.workItemIdRef = workItemId;
-    workDetailFind.workDetailIdRef = workDetailId;
-    workDetailFind.workDetailSlug = workDetailSlug;
+    workDetailFind.workDetailDescription = workDetailDescription;
     workDetailFind.clientIdRef = clientId;
+    workDetailFind.workItemIdRef = workItemId;
+    workDetailFind.workDetailSlug = workDetailSlug;
 
     const workDetailUpdated = await workDetailFind.save();
     const updatedResponse = NextResponse.json(workDetailUpdated, {
