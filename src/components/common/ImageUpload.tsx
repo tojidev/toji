@@ -33,10 +33,11 @@ const ImageUpload = ({ onSuccess }: ImageUploadProps) => {
    * @returns {Promise<{signature: string, expire: string, token: string, publicKey: string}>} The authentication parameters.
    * @throws {Error} Throws an error if the authentication request fails.
    */
+  const apiBaseURL = process.env.API_BASE_URL;
   const authenticator = async () => {
     try {
       // Perform the request to the upload authentication endpoint.
-      const response = await fetch("http://localhost:3000/api/v1/upload-auth");
+      const response = await fetch(`${apiBaseURL}/upload-auth`);
       if (!response.ok) {
         // If the server response is not successful, extract the error text for debugging.
         const errorText = await response.text();
