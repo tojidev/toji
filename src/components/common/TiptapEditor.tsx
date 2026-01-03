@@ -23,6 +23,9 @@ const TipTapEditor: React.FC<TipTapEditorProps> = ({
       StarterKit.configure({
         heading: {
           levels: [1, 2, 3, 4],
+          HTMLAttributes: {
+            class: "text-3xl font-bold mb-4",
+          },
         },
       }),
     ],

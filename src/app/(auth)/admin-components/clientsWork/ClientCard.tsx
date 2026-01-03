@@ -22,58 +22,57 @@ const ClientCard: React.FC<ClientCardProps> = ({
   onEdit,
   onDelete,
 }) => {
-  console.log("client.clientSlug >>>> ", client.clientSlug);
   return (
-    <div className="flex items-center gap-4 rounded-lg border bg-white px-4 py-3 mb-3 shadow-sm hover:bg-gray-50">
-      {/* Image */}
-      <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-gray-100">
-        <Image
-          src={client.clientImage}
-          alt={client.clientName}
-          fill
-          className="object-cover"
-        />
-      </div>
+    <>
+      <tr className="hover:bg-slate-50">
+        <td className="p-4 border-b border-slate-200 py-5">
+          <Image
+            src={client.clientImage}
+            alt={client.clientName}
+            width={100}
+            height={75}
+            className="w-16 h-16 object-cover rounded"
+          />
+        </td>
+        <td className="p-4 border-b border-slate-200 py-5">
+          <p className="block font-semibold text-sm text-slate-800">
+            {client.clientName}
+          </p>
+        </td>
 
-      {/* Name & Description */}
-      <div className="flex-1 min-w-0">
-        <p className="font-medium text-gray-800 truncate">
-          {client.clientName}
-        </p>
-        <p className="text-sm text-gray-500 truncate text-wrap">
-          {client.clientDescriptionText}
-        </p>
-      </div>
+        <td className="p-4 border-b border-slate-200 py-5  whitespace-wrap overflow-hidden text-ellipsis max-w-sm">
+          <p className="text-sm text-slate-500 ">
+            {client.clientDescriptionText}
+          </p>
+        </td>
 
-      {/* Slug */}
-      <div className="w-48 text-sm text-gray-500 truncate">
-        {client.clientSlug}
-      </div>
+        <td className="p-4 border-b border-slate-200 py-5">
+          <p className="text-sm text-slate-500">{client.clientSlug}</p>
+        </td>
+        <td className="text-right">
+          <Link
+            href={`/admin/clients/${client.clientSlug}/work-items/`}
+            className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
+          >
+            {client.clientName}
+          </Link>
 
-      {/* Actions */}
-      <div className="flex gap-2">
-        <Link
-          href={`/admin/clients/${client.clientSlug}/work-items/`}
-          className="rounded-md bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700 cursor-pointer"
-        >
-          {client.clientName}
-        </Link>
+          <button
+            onClick={() => onEdit?.(client)}
+            className="rounded-md bg-blue-600 p-2 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
+          >
+            Edit
+          </button>
 
-        <button
-          onClick={() => onEdit?.(client)}
-          className="rounded-md bg-blue-600 px-3 py-1.5 text-sm text-white hover:bg-blue-700 cursor-pointer"
-        >
-          Edit
-        </button>
-
-        <button
-          onClick={() => onDelete?.(client.clientSlug)}
-          className="rounded-md bg-red-600 px-3 py-1.5 text-sm text-white hover:bg-red-700 cursor-pointer"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
+          <button
+            onClick={() => onDelete?.(client.clientSlug)}
+            className="rounded-md bg-red-600 p-2 m-2 text-sm text-white hover:bg-red-700 cursor-pointer"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </>
   );
 };
 

@@ -63,14 +63,49 @@ const WorkDetailList: React.FC<{ clientId: string; workItemId: string }> = ({
 
   return (
     <div>
-      {workDetail.map((workDetailData) => (
-        <WorkDetailCard
-          key={workDetailData._id}
-          workDetail={workDetailData}
-          onEdit={(c) => handleEdit(c)}
-          onDelete={(slug) => handleDelete(slug)}
-        />
-      ))}
+      <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
+        <table className="w-full text-left table-auto min-w-max">
+          <thead>
+            <tr>
+              <th className="p-4 border-b border-slate-300 bg-slate-50">
+                <p className="block text-sm font-normal leading-none text-slate-500">
+                  Image
+                </p>
+              </th>
+              <th className="p-4 border-b border-slate-300 bg-slate-50">
+                <p className="block text-sm font-normal leading-none text-slate-500">
+                  Name
+                </p>
+              </th>
+              <th className="p-4 border-b border-slate-300 bg-slate-50">
+                <p className="block text-sm font-normal leading-none text-slate-500">
+                  Description
+                </p>
+              </th>
+              <th className="p-4 border-b border-slate-300 bg-slate-50">
+                <p className="block text-sm font-normal leading-none text-slate-500">
+                  Slug or Path name
+                </p>
+              </th>
+              <th className="p-4 border-b border-slate-300 bg-slate-50">
+                <p className="block text-sm font-normal leading-none text-slate-500">
+                  Controls
+                </p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {workDetail.map((workDetailData) => (
+              <WorkDetailCard
+                key={workDetailData._id}
+                workDetail={workDetailData}
+                onEdit={(c) => handleEdit(c)}
+                onDelete={(slug) => handleDelete(slug)}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
       <BackButton backLink={`/admin/clients/${clientId}/work-items/`} />
       <Modal
         isOpen={open}
