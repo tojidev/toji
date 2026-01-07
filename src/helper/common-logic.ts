@@ -4,3 +4,13 @@ export function toTitleCase(input: string): string {
     .toLowerCase() // normalize case
     .replace(/\b\w/g, (char) => char.toUpperCase()); // capitalize first letter
 }
+
+export function isURL(str: string) {
+  try {
+    new URL(str);
+    return true;
+  } catch (err: unknown) {
+    console.log(err);
+    return false;
+  }
+}

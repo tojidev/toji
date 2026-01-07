@@ -13,6 +13,7 @@ import { ClientType } from "@/utils/workTypes";
    Validation Schema
 ------------------------------ */
 const ClientSchema = Yup.object({
+  haveSingleWorkDetails: Yup.boolean(),
   clientName: Yup.string()
     .min(2, "Too short")
     .required("Client name is required"),
@@ -30,7 +31,7 @@ const ClientSchema = Yup.object({
     .required("Slug is required"),
 });
 
-const ClientForm: React.FC<{
+const ClientEditForm: React.FC<{
   initialValues: Omit<ClientType, "_id">;
   modalClose: () => void;
 }> = ({ initialValues, modalClose }) => {
@@ -50,9 +51,9 @@ const ClientForm: React.FC<{
 
   return (
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+      {/* <h2 className="text-2xl font-semibold mb-6 text-gray-800">
         Create Client
-      </h2>
+      </h2> */}
 
       <Formik
         initialValues={initialValues}
@@ -61,7 +62,18 @@ const ClientForm: React.FC<{
       >
         {({ isSubmitting, setFieldValue, values, errors, touched }) => (
           <Form className="space-y-4">
-            {/* Client Name */}
+            <div className="flex items-center">
+              <label className="flex items-center gap-2">
+                <Field
+                  name="haveSingleWorkDetails"
+                  type="checkbox"
+                  className="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500"
+                />
+                <span className="text-sm">
+                  Have single work item details only?
+                </span>
+              </label>
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Client Name
@@ -167,4 +179,4 @@ const ClientForm: React.FC<{
   );
 };
 
-export default ClientForm;
+export default ClientEditForm;

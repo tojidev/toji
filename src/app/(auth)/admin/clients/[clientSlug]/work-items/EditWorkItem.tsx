@@ -51,9 +51,9 @@ const EditWorkItem: React.FC<{
 
   return (
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+      {/* <h2 className="text-2xl font-semibold mb-6 text-gray-800">
         Add New Work item
-      </h2>
+      </h2> */}
 
       <Formik
         initialValues={initialValues}

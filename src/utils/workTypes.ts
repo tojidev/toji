@@ -1,5 +1,6 @@
 export interface ClientType {
   _id: string;
+  haveSingleWorkDetails: boolean;
   clientName: string;
   clientImage: string;
   clientDescriptionText: string;

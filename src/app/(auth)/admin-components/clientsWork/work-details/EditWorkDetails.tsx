@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useAxios } from "@/hooks/useAxios";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import ImageUpload from "@/components/common/ImageUpload";
 import { AddWorkDetailFormValues } from "@/utils/types";
 import TipTapEditor from "@/components/common/TiptapEditor";
+import { WorkDetail } from "@/utils/workTypes";
 
 const workItemSchema = Yup.object({
   workDetailName: Yup.string().required("Required"),
@@ -21,57 +22,37 @@ const workItemSchema = Yup.object({
     .required("Slug is required"),
 });
 
-/* -----------------------------
-   Initial Values
------------------------------- */
-function formInitialValue(clientName: string, workItemName: string) {
-  const initialValues: AddWorkDetailFormValues = {
-    workDetailName: "",
-    workDetailImage: "",
-    workDetailDoubleSection: false,
-    workDetailDescription: "",
-    clientIdRef: clientName,
-    workItemIdRef: workItemName,
-    workDetailSlug: "",
-  };
-  return initialValues;
-}
-/* -----------------------------
-   Component
------------------------------- */
-const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
-  clientId,
-  workItemId,
-}) => {
-  const { post, loading } = useAxios();
-
-  // useEffect(() => {
-  //   initialValues.clientIdRef = clientId;
-  //   initialValues.workItemIdRef = workItemId;
-  // }, [clientId, workItemId]);
+const EditWorkDetails: React.FC<{
+  clientId: string;
+  workItemId: string;
+  initialValues: Omit<WorkDetail, "_id">;
+  modalClose: () => void;
+}> = ({ clientId, workItemId, initialValues, modalClose }) => {
+  const { put, loading } = useAxios();
 
   const handleSubmit = async (
     values: AddWorkDetailFormValues,
     { resetForm }: FormikHelpers<AddWorkDetailFormValues>
   ) => {
     console.log("Form Data:", JSON.stringify(values), loading);
-    const addedWork = await post(
-      `/works/${clientId}/work-items/${workItemId}/work-details`,
+    const addedWork = await put(
+      `/works/${clientId}/work-items/${workItemId}/work-details/${initialValues.workDetailSlug}`,
       values
     );
     resetForm();
+    modalClose();
     toast.success("New client is added!");
     return addedWork;
   };
 
   return (
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-        Add New Work item
-      </h2>
+      {/* <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+        Edit New Work item detail
+      </h2> */}
 
       <Formik
-        initialValues={formInitialValue(clientId, workItemId)}
+        initialValues={initialValues}
         validationSchema={workItemSchema}
         onSubmit={handleSubmit}
       >
@@ -131,7 +112,7 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
             {/* Checkbox */}
             <div className="p-4 border border-black relative mt-12">
               <h2 className="absolute -top-6 translate-y-1/2 bg-white">
-                For Work Details two section view
+                Two section view for work detail
               </h2>
               <label className="flex items-center gap-2">
                 <Field
@@ -139,21 +120,42 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
                   name="workDetailDoubleSection"
                   className="h-4 w-4"
                 />
-                <span className="text-sm">Enable extra field</span>
+                <span className="text-sm">Enable double view in a row</span>
               </label>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Creatives work description
-                </label>
-                <TipTapEditor
-                  value={values.workDetailDescription}
-                  onChange={(val) =>
-                    setFieldValue("workDetailDescription", val)
-                  }
-                  error={errors.workDetailDescription}
-                  touched={touched.workDetailDescription}
-                />
+                <div className="flex">
+                  <div className="flex-1">
+                    <Field
+                      name={`workDetailDescription`}
+                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      disabled={true}
+                    />
+                    <ErrorMessage
+                      name={`workDetailDescription`}
+                      component="p"
+                      className="text-sm text-red-500 mt-1"
+                    />
+                  </div>
+                  <div className="mt-1">
+                    <ImageUpload
+                      onSuccess={(url) =>
+                        setFieldValue(`workDetailDescription`, url)
+                      }
+                    />
+                  </div>
+
+                  {/* Preview */}
+                  {values.workDetailDescription && (
+                    <div className="mt-1">
+                      <img
+                        src={values.workDetailDescription}
+                        alt="Preview"
+                        className="h-10 rounded-lg object-cover"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -187,10 +189,10 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
             </button>
             <button
               type="button"
-              disabled={false}
+              onClick={() => modalClose()}
               className="p-3 ml-4 cursor-pointer bg-red-800 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50"
             >
-              {"Clear"}
+              Close
             </button>
           </Form>
         )}
@@ -199,4 +201,4 @@ const AddWorkDetails: React.FC<{ clientId: string; workItemId: string }> = ({
   );
 };
 
-export default AddWorkDetails;
+export default EditWorkDetails;

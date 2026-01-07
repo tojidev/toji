@@ -2,19 +2,21 @@ import WorkTab from "@/app/(auth)/admin-components/WorkTabs";
 import WorkDetailList from "@/app/(auth)/admin-components/clientsWork/work-details/WorkDetailList";
 import AddWorkDetails from "@/app/(auth)/admin-components/clientsWork/work-details/AddWorkDetails";
 import { toTitleCase } from "@/helper/common-logic";
+import Breadcrumbs from "@/app/(auth)/admin-components/Breadcrumbs";
 
-const WorkDetails = async ({
+const SeparateWorkDetails = async ({
   params,
 }: {
   params: Promise<{ clientSlug: string; workItemSlug: string }>;
 }) => {
-  const { clientSlug, workItemSlug } = await params;
+  const { clientSlug } = await params;
+  const workItemSlug = clientSlug;
 
   return (
     <>
-      <h1 className="text-3xl text-black pb-6">
-        {toTitleCase(clientSlug)} {">>"} {toTitleCase(workItemSlug)} {">>"} Work
-        Details
+      <Breadcrumbs />
+      <h1 className="text-3xl text-gray-700 pb-6">
+        {toTitleCase(clientSlug)} {">>"} Work Details
       </h1>
 
       <WorkTab
@@ -39,4 +41,4 @@ const WorkDetails = async ({
   );
 };
 
-export default WorkDetails;
+export default SeparateWorkDetails;

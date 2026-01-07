@@ -31,6 +31,10 @@ const ClientList: React.FC = () => {
   }, []);
 
   const handleEdit = (client: Omit<ClientType, "_id">) => {
+    if (!client.haveSingleWorkDetails) {
+      client.haveSingleWorkDetails = false;
+    }
+
     setFormInitialValue(client);
     setOpen(true);
   };
@@ -76,11 +80,11 @@ const ClientList: React.FC = () => {
               </th>
               <th className="p-4 border-b border-slate-300 bg-slate-50">
                 <p className="block text-sm font-normal leading-none text-slate-500">
-                  Slug or Path name
+                  Slug or Path
                 </p>
               </th>
               <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
+                <p className="block text-sm font-normal leading-none text-slate-500 text-right">
                   Controls
                 </p>
               </th>
@@ -100,11 +104,7 @@ const ClientList: React.FC = () => {
       </div>
       <BackButton backLink={`/admin/`} />
 
-      <Modal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        title="This is My modal for edit form..."
-      >
+      <Modal isOpen={open} onClose={() => setOpen(false)} title={`Edit Client`}>
         <ClientEditForm
           initialValues={formIntialValue}
           modalClose={() => setOpen(false)}

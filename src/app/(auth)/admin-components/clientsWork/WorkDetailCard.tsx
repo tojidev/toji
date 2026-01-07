@@ -63,12 +63,12 @@ const WorkDetailCard: React.FC<WorkItemCardProps> = ({
         </p>
       </td>
       <td className="text-right">
-        <Link
+        {/* <Link
           href={`/admin/clients/${workDetail.clientIdRef}/work-items/${workDetail.workDetailSlug}/work-details`}
           className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700"
         >
           {workDetail.workDetailName}
-        </Link>
+        </Link> */}
 
         <button
           onClick={() => onEdit?.(workDetail)}

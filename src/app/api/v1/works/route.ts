@@ -24,13 +24,19 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const { clientSlug, clientName, clientImage, clientDescriptionText } =
-    await request.json();
+  const {
+    clientSlug,
+    clientName,
+    clientImage,
+    haveSingleWorkDetails,
+    clientDescriptionText,
+  } = await request.json();
 
   const client = new Client({
     clientSlug,
     clientName,
     clientImage,
+    haveSingleWorkDetails,
     clientDescriptionText,
   });
 

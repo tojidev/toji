@@ -7,7 +7,7 @@ const LeftWorkContent: React.FC<{
   return (
     <>
       <div className="mb-4">
-        <p className="text-xl font-bold">{headingText}</p>
+        <p className="text-xl font-semibold">{headingText}</p>
       </div>
       <div dangerouslySetInnerHTML={{ __html: leftBodyText }} />
     </>

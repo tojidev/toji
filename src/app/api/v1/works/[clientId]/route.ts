@@ -31,15 +31,26 @@ export async function PUT(
 ) {
   const { clientId } = await params;
 
-  const { clientSlug, clientName, clientImage, clientDescriptionText } =
-    await request.json();
+  const {
+    clientSlug,
+    clientName,
+    clientImage,
+    haveSingleWorkDetails,
+    clientDescriptionText,
+  } = await request.json();
+  // console.log(await request.json());
+  console.log(haveSingleWorkDetails);
 
   try {
     const clientFind = await Client.findOne({ clientSlug: clientId });
     clientFind.clientSlug = clientSlug;
     clientFind.clientName = clientName;
     clientFind.clientImage = clientImage;
+    clientFind.haveSingleWorkDetails = haveSingleWorkDetails;
     clientFind.clientDescriptionText = clientDescriptionText;
+
+    console.log("clint updated here >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    console.log(clientFind);
 
     const clientUpdated = await clientFind.save();
     const updatedResponse = NextResponse.json(clientUpdated, { status: 200 });

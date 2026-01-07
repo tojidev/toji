@@ -102,6 +102,7 @@ export const clientInitialValues: Omit<ClientType, "_id"> = {
   clientName: "",
   clientImage: "",
   clientDescriptionText: "",
+  haveSingleWorkDetails: false,
   clientSlug: "",
 };
 export const workItemInitialValues: Omit<WorkItemTypes, "_id"> = {

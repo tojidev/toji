@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, onClose, children }) => {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
       {/* Modal box */}
-      <div className="relative z-10 w-full max-w-lg rounded-xl bg-white shadow-lg lg:ml-[290px] max-h-screen overflow-auto">
+      <div className="relative z-10 w-full max-w-xl rounded-xl bg-white shadow-lg lg:ml-[450px] max-h-screen overflow-auto">
         {/* Header */}
         <div className="flex items-center justify-between border-b px-4 py-3">
           <h2 className="text-lg font-semibold text-gray-800">

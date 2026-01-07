@@ -83,11 +83,11 @@ const WorkItemList: React.FC<{ clientId: string }> = ({ clientId }) => {
               </th>
               <th className="p-4 border-b border-slate-300 bg-slate-50">
                 <p className="block text-sm font-normal leading-none text-slate-500">
-                  Slug or Path name
+                  Slug or Path
                 </p>
               </th>
               <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
+                <p className="block text-sm font-normal leading-none text-slate-500 text-right">
                   Controls
                 </p>
               </th>
@@ -110,7 +110,7 @@ const WorkItemList: React.FC<{ clientId: string }> = ({ clientId }) => {
       <Modal
         isOpen={open}
         onClose={() => setOpen(false)}
-        title="This is My modal for edit form..."
+        title="Edit work item"
       >
         <EditWorkItem
           clientId={clientId}

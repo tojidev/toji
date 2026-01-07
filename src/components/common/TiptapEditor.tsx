@@ -21,10 +21,40 @@ const TipTapEditor: React.FC<TipTapEditorProps> = ({
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
+        paragraph: {
+          HTMLAttributes: {
+            class: "mb-4",
+          },
+        },
+
         heading: {
           levels: [1, 2, 3, 4],
           HTMLAttributes: {
             class: "text-3xl font-bold mb-4",
+          },
+        },
+
+        bold: {
+          HTMLAttributes: {
+            class: "font-semibold",
+          },
+        },
+
+        italic: {
+          HTMLAttributes: {
+            class: "italic-text",
+          },
+        },
+
+        bulletList: {
+          HTMLAttributes: {
+            class: "list-disc ml-6 space-y-2",
+          },
+        },
+
+        listItem: {
+          HTMLAttributes: {
+            class: "ml-2",
           },
         },
       }),
@@ -99,6 +129,25 @@ const TipTapEditor: React.FC<TipTapEditorProps> = ({
           className="rounded bg-gray-200 px-2 py-1 text-sm"
         >
           Bullet
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            const isActive =
+              editor?.getAttributes("paragraph")?.class === "mb-4";
+
+            editor
+              ?.chain()
+              .focus()
+              .updateAttributes("paragraph", {
+                class: isActive ? "" : "mb-4",
+              })
+              .run();
+            console.log("editors.....", editor, editor?.chain().focus());
+          }}
+          className="rounded bg-gray-200 px-2 py-1 text-sm"
+        >
+          mb-4
         </button>
       </div>
 

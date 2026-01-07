@@ -23,7 +23,7 @@ body {
 h1,
 h2 {
   font-family: var(--ui-font);
-  font-weight: 700; /* will use Graphik Semibold if available */
+  font-weight: 600; /* will use Graphik Semibold if available */
 }
 strong {
   font-family: var(--ui-font);

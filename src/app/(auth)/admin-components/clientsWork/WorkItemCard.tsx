@@ -60,7 +60,7 @@ const WorkItemCard: React.FC<WorkItemCardProps> = ({
             href={`/admin/clients/${workItem.clientIdRef}/work-items/${workItem.workItemSlug}/work-details`}
             className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
           >
-            {workItem.workItemName}
+            Show {workItem.workItemName}
           </Link>
 
           <button

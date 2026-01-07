@@ -4,6 +4,7 @@ const workSchema = new Schema({
   clientName: String,
   clientImage: String,
   clientDescriptionText: String,
+  haveSingleWorkDetails: Boolean,
   clientSlug: String,
 });
 

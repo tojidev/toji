@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,9 +27,11 @@ const Header = () => {
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex gap-8 text-sm font-medium">
-            <Link href="/" className="hover:text-blue-600">
-              Work
-            </Link>
+            {pathname !== "/" && (
+              <Link href="/" className="hover:text-blue-600">
+                Work
+              </Link>
+            )}
             <Link href="/about" className="hover:text-blue-600">
               About
             </Link>

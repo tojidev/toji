@@ -13,6 +13,7 @@ import { ClientType } from "@/utils/workTypes";
    Validation Schema
 ------------------------------ */
 const ClientSchema = Yup.object({
+  haveSingleWorkDetails: Yup.boolean(),
   clientName: Yup.string()
     .min(2, "Too short")
     .required("Client name is required"),
@@ -59,7 +60,18 @@ const ClientForm: React.FC<{ initialValues: Omit<ClientType, "_id"> }> = ({
       >
         {({ isSubmitting, setFieldValue, values, errors, touched }) => (
           <Form className="space-y-4">
-            {/* Client Name */}
+            <div className="flex items-center">
+              <label className="flex items-center gap-2">
+                <Field
+                  name="haveSingleWorkDetails"
+                  type="checkbox"
+                  className="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500"
+                />
+                <span className="text-sm">
+                  Have single work item details only?
+                </span>
+              </label>
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Client Name

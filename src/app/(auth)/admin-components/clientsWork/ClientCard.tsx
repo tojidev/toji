@@ -2,18 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
-interface Client {
-  _id: string;
-  clientName: string;
-  clientImage: string;
-  clientDescriptionText: string;
-  clientSlug: string;
-}
+import { ClientType } from "@/utils/workTypes";
 
 interface ClientCardProps {
-  client: Client;
-  onEdit?: (client: Client) => void;
+  client: ClientType;
+  onEdit?: (client: ClientType) => void;
   onDelete?: (id: string) => void;
 }
 
@@ -51,10 +44,14 @@ const ClientCard: React.FC<ClientCardProps> = ({
         </td>
         <td className="text-right">
           <Link
-            href={`/admin/clients/${client.clientSlug}/work-items/`}
+            href={
+              client.haveSingleWorkDetails
+                ? `/admin/clients/${client.clientSlug}/work-details/`
+                : `/admin/clients/${client.clientSlug}/work-items/`
+            }
             className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
           >
-            {client.clientName}
+            Show {client.clientName}
           </Link>
 
           <button
