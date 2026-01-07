@@ -2,6 +2,7 @@ import WorkTab from "@/app/(auth)/admin-components/WorkTabs";
 import WorkDetailList from "@/app/(auth)/admin-components/clientsWork/work-details/WorkDetailList";
 import AddWorkDetails from "@/app/(auth)/admin-components/clientsWork/work-details/AddWorkDetails";
 import { toTitleCase } from "@/helper/common-logic";
+import Breadcrumbs from "@/app/(auth)/admin-components/Breadcrumbs";
 
 const WorkDetails = async ({
   params,
@@ -12,10 +13,8 @@ const WorkDetails = async ({
 
   return (
     <>
-      <h1 className="text-3xl text-black pb-6">
-        {toTitleCase(clientSlug)} {">>"} {toTitleCase(workItemSlug)} {">>"} Work
-        Details
-      </h1>
+      <Breadcrumbs />
+      <h1 className="text-2xl text-black pb-6">Work Details</h1>
 
       <WorkTab
         tabs={[

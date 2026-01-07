@@ -15,7 +15,7 @@ const SeparateWorkDetails = async ({
   return (
     <>
       <Breadcrumbs />
-      <h1 className="text-3xl text-gray-700 pb-6">
+      <h1 className="text-2xl text-gray-700 pb-6">
         {toTitleCase(clientSlug)} {">>"} Work Details
       </h1>
 

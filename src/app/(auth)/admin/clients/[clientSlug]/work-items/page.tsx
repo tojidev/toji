@@ -4,6 +4,7 @@ import WorkTab from "@/app/(auth)/admin-components/WorkTabs";
 import WorkItemList from "./WorkItemList";
 import AddWorkItem from "./AddWorkItem";
 import { toTitleCase } from "@/helper/common-logic";
+import Breadcrumbs from "@/app/(auth)/admin-components/Breadcrumbs";
 
 const WorkItems = async ({
   params,
@@ -14,9 +15,8 @@ const WorkItems = async ({
 
   return (
     <>
-      <h1 className="text-3xl text-black pb-6">
-        {toTitleCase(clientSlug)} {" >> "} Works
-      </h1>
+      <Breadcrumbs />
+      <h1 className="text-2xl text-black pb-6">Work Items</h1>
 
       <WorkTab
         tabs={[

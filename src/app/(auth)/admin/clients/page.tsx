@@ -4,13 +4,15 @@ import ClientList from "./ClientList";
 import WorkTab from "../../admin-components/WorkTabs";
 import { clientInitialValues } from "@/data/static";
 import { requireAuth } from "@/lib/auth";
+import Breadcrumbs from "../../admin-components/Breadcrumbs";
 
 const Clients: React.FC = async () => {
   const token = await requireAuth();
 
   return (
     <>
-      <h1 className="text-3xl text-black pb-6">Clients</h1>
+      <Breadcrumbs />
+      <h1 className="text-2xl text-black pb-6">Clients</h1>
 
       {/* <ViewClients clients={getClients} /> */}
       <WorkTab
