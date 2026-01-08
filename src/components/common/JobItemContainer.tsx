@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { WorkItemTypes } from "@/utils/workTypes";
+import BackButton from "./BackButton";
 
 const JobItemContainer: React.FC<{
   workItems: WorkItemTypes[];
@@ -26,6 +27,7 @@ const JobItemContainer: React.FC<{
           </div>
         ))}
       </div>
+      <BackButton backLink={`/`} />
     </div>
   );
 };

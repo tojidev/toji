@@ -1,18 +1,17 @@
 import React from "react";
 import Image from "next/image";
-import { WorkDetail, WorkItemTypes } from "@/utils/workTypes";
+import { WorkDetail } from "@/utils/workTypes";
 import BackButton from "./BackButton";
 import { isURL } from "@/helper/common-logic";
 
 const SingleContentContainer: React.FC<{
-  workItemData: WorkItemTypes;
   workDetails: WorkDetail[];
-}> = ({ workItemData, workDetails }) => {
+  workTitle: string;
+  parentLink: string;
+}> = ({ workDetails, workTitle, parentLink }) => {
   return (
     <div>
-      <div className="italic-text text-xl mb-2">
-        {workItemData.workItemName}
-      </div>
+      <div className="italic-text text-xl mb-2">{workTitle}</div>
       <div className="gap-4">
         {workDetails.map((item) => (
           <div key={item._id} className="mb-8">
@@ -56,7 +55,7 @@ const SingleContentContainer: React.FC<{
             )}
           </div>
         ))}
-        <BackButton backLink={`/works/${workItemData.clientIdRef}`} />
+        <BackButton backLink={parentLink} />
       </div>
     </div>
   );

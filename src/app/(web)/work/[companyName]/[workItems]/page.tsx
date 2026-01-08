@@ -29,7 +29,8 @@ async function WorkItems({
         }
         RightcontentItems={
           <SingleContentContainer
-            workItemData={workItemData}
+            workTitle={workItemData.workItemName}
+            parentLink={`/work/${workItemData.clientIdRef}`}
             workDetails={workDetails}
           />
         }
