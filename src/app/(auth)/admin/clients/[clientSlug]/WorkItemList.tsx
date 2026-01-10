@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useAxios } from "@/hooks/useAxios";
 import WorkItemCard from "@/app/(auth)/admin-components/clientsWork/WorkItemCard";
 import { WorkItemTypes } from "@/utils/workTypes";
@@ -120,4 +120,4 @@ const WorkItemList: React.FC<{ clientId: string }> = ({ clientId }) => {
   );
 };
 
-export default WorkItemList;
+export default memo(WorkItemList);

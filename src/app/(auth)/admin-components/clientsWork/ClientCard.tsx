@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ClientType } from "@/utils/workTypes";
@@ -10,11 +11,11 @@ interface ClientCardProps {
   onDelete?: (id: string) => void;
 }
 
-const ClientCard: React.FC<ClientCardProps> = ({
+const ClientCard: React.FC<ClientCardProps> = React.memo(function ClientCard({
   client,
   onEdit,
   onDelete,
-}) => {
+}) {
   return (
     <>
       <tr className="hover:bg-slate-50">
@@ -74,6 +75,6 @@ const ClientCard: React.FC<ClientCardProps> = ({
       </tr>
     </>
   );
-};
+});
 
 export default ClientCard;

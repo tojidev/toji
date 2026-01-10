@@ -2,6 +2,7 @@
 
 import { WorkDetail } from "@/utils/workTypes";
 import Image from "next/image";
+import { memo } from "react";
 
 interface WorkItemCardProps {
   workDetail: WorkDetail;
@@ -77,4 +78,4 @@ const WorkDetailCard: React.FC<WorkItemCardProps> = ({
   );
 };
 
-export default WorkDetailCard;
+export default memo(WorkDetailCard);

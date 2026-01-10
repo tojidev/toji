@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import ImageUpload from "@/components/common/ImageUpload";
@@ -193,4 +193,4 @@ const WorkDetailForm: React.FC<{
   );
 };
 
-export default WorkDetailForm;
+export default memo(WorkDetailForm);

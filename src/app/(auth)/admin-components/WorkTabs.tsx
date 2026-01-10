@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
 export interface TabItem {
   key: string;
@@ -44,4 +44,4 @@ const WorkTab: React.FC<TabsProps> = ({ tabs, defaultActiveKey }) => {
   );
 };
 
-export default WorkTab;
+export default memo(WorkTab);

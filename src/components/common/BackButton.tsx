@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { memo } from "react";
 
 import Link from "next/link";
 
@@ -30,4 +30,4 @@ const BackButton: React.FC<{ backLink: string }> = ({ backLink }) => {
   );
 };
 
-export default BackButton;
+export default memo(BackButton);

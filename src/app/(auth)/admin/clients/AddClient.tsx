@@ -1,12 +1,9 @@
 "use client";
 
-import React from "react";
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
-import * as Yup from "yup";
+import React, { memo } from "react";
+import { FormikHelpers } from "formik";
 import { useAxios } from "@/hooks/useAxios";
 import { toast } from "react-toastify";
-import ImageUpload from "@/components/common/ImageUpload";
-import TipTapEditor from "@/components/common/TiptapEditor";
 import { ClientType } from "@/utils/workTypes";
 import ClientForm from "./ClientForm";
 import { clientInitialValues } from "@/data/static";
@@ -37,4 +34,4 @@ const AddClient: React.FC = () => {
   );
 };
 
-export default AddClient;
+export default memo(AddClient);

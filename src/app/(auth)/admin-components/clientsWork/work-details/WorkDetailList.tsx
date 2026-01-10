@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { memo, useEffect, useState } from "react";
 import { useAxios } from "@/hooks/useAxios";
 import WorkDetailCard from "@/app/(auth)/admin-components/clientsWork/WorkDetailCard";
 import { WorkDetail } from "@/utils/workTypes";
@@ -123,4 +124,4 @@ const WorkDetailList: React.FC<{ clientId: string; workItemId: string }> = ({
   );
 };
 
-export default WorkDetailList;
+export default memo(WorkDetailList);

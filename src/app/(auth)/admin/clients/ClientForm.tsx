@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import ImageUpload from "@/components/common/ImageUpload";
@@ -176,4 +176,4 @@ const ClientForm: React.FC<{
   );
 };
 
-export default ClientForm;
+export default memo(ClientForm);

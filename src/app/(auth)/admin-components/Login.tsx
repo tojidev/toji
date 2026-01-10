@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default memo(function LoginPage() {
   const router = useRouter();
 
   const [username, setUsername] = useState("");
@@ -73,4 +73,4 @@ export default function LoginPage() {
       </form>
     </div>
   );
-}
+});

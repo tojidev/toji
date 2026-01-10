@@ -5,17 +5,42 @@ import WorkItem from "@/models/work/workItem";
 import WorkItemDetail from "@/models/work/workItemDetail";
 
 /* -------------------- Clients -------------------- */
+await connectDb();
 
 export async function getClients(): Promise<ClientType[]> {
-  await connectDb();
   return Client.find({}).lean();
 }
 
 export async function getClientBySlug(clientSlug: string): Promise<ClientType> {
-  await connectDb();
+  // await connectDb();
   const clientName = clientSlug.toLowerCase();
   const client = await Client.findOne({ clientSlug: clientName });
   return client;
+}
+
+export async function getWorkItemsDetails(clientSlug: string): Promise<{
+  clientDetail: ClientType;
+  workData: WorkItemTypes[] | WorkDetail[];
+}> {
+  // await connectDb();
+
+  const clientDetail = await Client.findOne({
+    clientSlug: clientSlug.toLowerCase(),
+  });
+  let workData;
+
+  if (clientDetail.haveSingleWorkDetails) {
+    workData = await WorkItemDetail.find({
+      clientIdRef: clientSlug.toLowerCase(),
+      workItemIdRef: clientDetail.clientSlug,
+    }).lean();
+  } else {
+    workData = await WorkItem.find({
+      clientIdRef: clientSlug.toLowerCase(),
+    }).lean();
+  }
+
+  return { clientDetail, workData };
 }
 
 /* -------------------- Work Items -------------------- */
@@ -23,7 +48,7 @@ export async function getClientBySlug(clientSlug: string): Promise<ClientType> {
 export async function getWorkItems(
   clientSlug: string
 ): Promise<WorkItemTypes[]> {
-  await connectDb();
+  // await connectDb();
   const clientName = clientSlug.toLowerCase();
   const clientsWorks = await WorkItem.find({ clientIdRef: clientName }).lean();
   return clientsWorks;
@@ -33,7 +58,7 @@ export async function getWorkItemBySlug(
   clientSlug: string,
   workItemSlug: string
 ): Promise<WorkItemTypes> {
-  await connectDb();
+  // await connectDb();
 
   const clientName = clientSlug.toLowerCase();
   const workItemName = workItemSlug.toLowerCase();
@@ -50,7 +75,7 @@ export async function getWorkDetails(
   clientSlug: string,
   workItemSlug: string
 ): Promise<WorkDetail[]> {
-  await connectDb();
+  // await connectDb();
 
   const clientName = clientSlug.toLowerCase();
   const workItemName = workItemSlug.toLowerCase();
@@ -68,7 +93,7 @@ export async function getWorkDetailsBySlug(
   workItemSlug: string,
   workDetailSlug: string
 ): Promise<WorkDetail | null> {
-  await connectDb();
+  // await connectDb();
 
   const clientName = clientSlug.toLowerCase();
   const workItemName = workItemSlug.toLowerCase();

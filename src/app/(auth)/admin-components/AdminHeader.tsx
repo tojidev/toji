@@ -1,7 +1,7 @@
 "use client";
 
+import { memo, useState } from "react";
 import Image from "next/image";
-import { useState } from "react";
 import { LogoutButton } from "./Logout";
 
 const AdminHeader: React.FC<{ token: string }> = ({ token }) => {
@@ -59,4 +59,4 @@ const AdminHeader: React.FC<{ token: string }> = ({ token }) => {
   );
 };
 
-export default AdminHeader;
+export default memo(AdminHeader);

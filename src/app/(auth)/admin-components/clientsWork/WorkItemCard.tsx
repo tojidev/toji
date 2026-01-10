@@ -3,6 +3,7 @@
 import { WorkItemTypes } from "@/utils/workTypes";
 import Image from "next/image";
 import Link from "next/link";
+import { memo } from "react";
 
 interface WorkItemCardProps {
   workItem: WorkItemTypes;
@@ -74,4 +75,4 @@ const WorkItemCard: React.FC<WorkItemCardProps> = ({
   );
 };
 
-export default WorkItemCard;
+export default memo(WorkItemCard);

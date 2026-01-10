@@ -3,7 +3,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 
 import StarterKit from "@tiptap/starter-kit";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 interface TipTapEditorProps {
   value: string;
@@ -160,4 +160,4 @@ const TipTapEditor: React.FC<TipTapEditorProps> = ({
   );
 };
 
-export default TipTapEditor;
+export default memo(TipTapEditor);

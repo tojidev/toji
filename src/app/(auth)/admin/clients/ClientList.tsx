@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useAxios } from "@/hooks/useAxios";
 import ClientCard from "../../admin-components/clientsWork/ClientCard";
 import { ClientType } from "@/utils/workTypes";
@@ -114,4 +114,4 @@ const ClientList: React.FC = () => {
   );
 };
 
-export default ClientList;
+export default memo(ClientList);

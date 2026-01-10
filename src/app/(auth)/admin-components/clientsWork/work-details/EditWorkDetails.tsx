@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import { FormikHelpers } from "formik";
 import { useAxios } from "@/hooks/useAxios";
 import { toast } from "react-toastify";
@@ -42,4 +42,4 @@ const EditWorkDetails: React.FC<{
   );
 };
 
-export default EditWorkDetails;
+export default memo(EditWorkDetails);

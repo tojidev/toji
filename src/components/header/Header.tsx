@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -142,4 +142,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

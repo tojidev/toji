@@ -1,9 +1,10 @@
 "use client";
 
+import { memo } from "react";
 import { usePathname, useParams } from "next/navigation";
 import Link from "next/link";
 
-export default function Breadcrumbs() {
+export default memo(function Breadcrumbs() {
   const pathname = usePathname();
   const params = useParams();
   const paths = pathname.split("/").filter(Boolean);
@@ -57,4 +58,4 @@ export default function Breadcrumbs() {
       </ol>
     </nav>
   );
-}
+});

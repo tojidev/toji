@@ -11,6 +11,7 @@ export default async function ClientPage({
 }) {
   const { companyName } = await params;
   const clientDetail = await getClientBySlug(companyName);
+  // const { clientDetail, workData } = await getWorkItemsDetails(companyName)
 
   async function manageWorkDetails() {
     if (clientDetail.haveSingleWorkDetails) {
