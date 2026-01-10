@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { useAxios } from "@/hooks/useAxios";
-import { toast } from "react-toastify";
 import ImageUpload from "@/components/common/ImageUpload";
-import { AddWorkItemFormValues } from "@/utils/types";
 import TipTapEditor from "@/components/common/TiptapEditor";
 import { WorkItemTypes } from "@/utils/workTypes";
+import Image from "next/image";
 
 const workItemSchema = Yup.object({
+  _id: Yup.string(),
   workItemName: Yup.string().required("Required"),
   workItemImage: Yup.string().url("Invalid image URL").required("Required"),
   workItemDescription: Yup.string().min(5).required("Required"),
@@ -20,48 +19,24 @@ const workItemSchema = Yup.object({
     .required("Slug is required"),
 });
 
-/* -----------------------------
-   Initial Values
------------------------------- */
-
-/* -----------------------------
-   Component
------------------------------- */
-const EditWorkItem: React.FC<{
-  clientId: string;
-  initialValues: Omit<WorkItemTypes, "_id">;
-  modalClose: () => void;
-}> = ({ clientId, initialValues, modalClose }) => {
-  const { put, loading } = useAxios();
-
-  const handleSubmit = async (
-    values: AddWorkItemFormValues,
-    { resetForm }: FormikHelpers<AddWorkItemFormValues>
-  ) => {
-    console.log("Form Data:", JSON.stringify(values), loading);
-    const addedWork = await put(
-      `/works/${clientId}/work-items/${initialValues.workItemSlug}`,
-      values
-    );
-    resetForm();
-    modalClose();
-    toast.success("New client is added!");
-    return addedWork;
-  };
-
+const WorkItemForm: React.FC<{
+  initialValues: WorkItemTypes;
+  onSubmit: (
+    values: WorkItemTypes,
+    formikHelpers: FormikHelpers<WorkItemTypes>
+  ) => Promise<void>;
+  modalClose?: () => void;
+}> = ({ initialValues, onSubmit, modalClose }) => {
   return (
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
-      {/* <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-        Add New Work item
-      </h2> */}
-
       <Formik
         initialValues={initialValues}
         validationSchema={workItemSchema}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
       >
         {({ isSubmitting, setFieldValue, values, errors, touched }) => (
           <Form className="space-y-4">
+            <Field type="hidden" name="_id" />
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Work item name
@@ -103,9 +78,11 @@ const EditWorkItem: React.FC<{
                 {/* Preview */}
                 {values.workItemImage && (
                   <div className="mt-1">
-                    <img
+                    <Image
                       src={values.workItemImage}
                       alt="Preview"
+                      width={50}
+                      height={40}
                       className="h-10 rounded-lg object-cover"
                     />
                   </div>
@@ -152,13 +129,24 @@ const EditWorkItem: React.FC<{
             >
               {isSubmitting ? "Submitting..." : "Save Client"}
             </button>
-            <button
-              type="button"
-              onClick={modalClose}
-              className="p-3 ml-4 cursor-pointer bg-red-800 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50"
-            >
-              Close
-            </button>
+
+            {modalClose ? (
+              <button
+                type="button"
+                onClick={modalClose}
+                className="p-3 ml-4 cursor-pointer bg-red-800 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50"
+              >
+                Close
+              </button>
+            ) : (
+              <button
+                type="reset"
+                disabled={false}
+                className="p-3 ml-4 cursor-pointer bg-red-800 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50"
+              >
+                {"Clear"}
+              </button>
+            )}
           </Form>
         )}
       </Formik>
@@ -166,4 +154,4 @@ const EditWorkItem: React.FC<{
   );
 };
 
-export default EditWorkItem;
+export default WorkItemForm;

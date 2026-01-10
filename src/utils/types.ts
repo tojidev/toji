@@ -39,13 +39,13 @@ export type ClientWorkItem = {
   workItemDescription: string;
 };
 
-export interface AddWorkItemFormValues {
-  workItemName: string;
-  workItemImage: string;
-  workItemDescription: string;
-  clientIdRef: string;
-  workItemSlug: string;
-}
+// export interface AddWorkItemFormValues {
+//   workItemName: string;
+//   workItemImage: string;
+//   workItemDescription: string;
+//   clientIdRef: string;
+//   workItemSlug: string;
+// }
 
 export interface AddWorkDetailFormValues {
   workDetailName: string;

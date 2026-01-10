@@ -12,12 +12,10 @@ import EditWorkItem from "./EditWorkItem";
 const WorkItemList: React.FC<{ clientId: string }> = ({ clientId }) => {
   const { get, del, loading } = useAxios();
   const [workItemsData, setSetWorkItemsData] = useState<WorkItemTypes[]>([]);
-  const [formIntialValue, setFormInitialValue] = useState<
-    Omit<WorkItemTypes, "_id">
-  >(workItemInitialValues);
+  const [formIntialValue, setFormInitialValue] = useState<WorkItemTypes>(
+    workItemInitialValues(clientId)
+  );
   const [open, setOpen] = useState(false);
-
-  console.log("{ clientId: string }", clientId);
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -35,7 +33,7 @@ const WorkItemList: React.FC<{ clientId: string }> = ({ clientId }) => {
     fetchClients();
   }, [clientId]);
 
-  const handleEdit = (client: Omit<WorkItemTypes, "_id">) => {
+  const handleEdit = (client: WorkItemTypes) => {
     setFormInitialValue(client);
     setOpen(true);
   };

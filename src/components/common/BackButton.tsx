@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const BackButton: React.FC<{ backLink: string }> = ({ backLink }) => {
   return (
-    <div>
+    <div className="mt-5">
       <Link
         href={backLink}
         onClick={() => window.history.back()}

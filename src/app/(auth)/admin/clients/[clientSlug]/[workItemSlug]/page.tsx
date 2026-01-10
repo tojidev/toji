@@ -1,7 +1,6 @@
 import WorkTab from "@/app/(auth)/admin-components/WorkTabs";
 import WorkDetailList from "@/app/(auth)/admin-components/clientsWork/work-details/WorkDetailList";
 import AddWorkDetails from "@/app/(auth)/admin-components/clientsWork/work-details/AddWorkDetails";
-import { toTitleCase } from "@/helper/common-logic";
 import Breadcrumbs from "@/app/(auth)/admin-components/Breadcrumbs";
 
 const WorkDetails = async ({

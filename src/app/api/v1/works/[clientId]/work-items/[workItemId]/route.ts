@@ -32,20 +32,17 @@ export async function PUT(
 ) {
   const { clientId, workItemId } = await params;
 
-  const {
-    workItemLeftSectionContent,
-    workItemRightSectionContent,
-    workItemSlug,
-  } = await request.json();
+  const { workItemName, workItemImage, workItemDescription, workItemSlug } =
+    await request.json();
 
   try {
     const workItemFind = await WorkItem.findOne({
       workItemSlug: workItemId,
     });
-    workItemFind.workItemLeftSectionContent = workItemLeftSectionContent;
-    workItemFind.workItemRightSectionContent = workItemRightSectionContent;
+    workItemFind.workItemName = workItemName;
+    workItemFind.workItemImage = workItemImage;
+    workItemFind.workItemDescription = workItemDescription;
     workItemFind.clientIdRef = clientId;
-    workItemFind.workItemIdRef = workItemId;
     workItemFind.workItemSlug = workItemSlug;
 
     const workItemUpdated = await workItemFind.save();

@@ -33,22 +33,25 @@ const ClientCard: React.FC<ClientCardProps> = ({
           </p>
         </td>
 
-        <td className="p-4 border-b border-slate-200 py-5  whitespace-wrap overflow-hidden text-ellipsis max-w-sm">
+        <td className="p-4 border-b border-slate-200 py-5 whitespace-wrap overflow-hidden text-ellipsis max-w-xs max-h-xs">
           <p className="text-sm text-slate-500 ">
             {client.clientDescriptionText}
           </p>
         </td>
 
         <td className="p-4 border-b border-slate-200 py-5">
+          <p
+            className={`text-sm text-slate-800 ${
+              client.haveSingleWorkDetails && "font-semibold"
+            }`}
+          >
+            Direct detail page - {client.haveSingleWorkDetails ? "Yes" : "No"}
+          </p>
           <p className="text-sm text-slate-500">{client.clientSlug}</p>
         </td>
         <td className="text-right">
           <Link
-            href={
-              client.haveSingleWorkDetails
-                ? `/admin/clients/${client.clientSlug}/work-details/`
-                : `/admin/clients/${client.clientSlug}/work-items/`
-            }
+            href={`/admin/clients/${client.clientSlug}/`}
             className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
           >
             Show {client.clientName}

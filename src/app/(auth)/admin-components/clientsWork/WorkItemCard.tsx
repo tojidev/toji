@@ -1,20 +1,12 @@
 "use client";
 
+import { WorkItemTypes } from "@/utils/workTypes";
 import Image from "next/image";
 import Link from "next/link";
 
-interface WorkItemListCard {
-  _id: string;
-  workItemName: string;
-  workItemImage: string;
-  workItemDescription: string;
-  clientIdRef: string;
-  workItemSlug: string;
-}
-
 interface WorkItemCardProps {
-  workItem: WorkItemListCard;
-  onEdit?: (client: WorkItemListCard) => void;
+  workItem: WorkItemTypes;
+  onEdit?: (client: WorkItemTypes) => void;
   onDelete?: (id: string) => void;
 }
 
@@ -57,7 +49,7 @@ const WorkItemCard: React.FC<WorkItemCardProps> = ({
         </td>
         <td className="text-right">
           <Link
-            href={`/admin/clients/${workItem.clientIdRef}/work-items/${workItem.workItemSlug}/work-details`}
+            href={`/admin/clients/${workItem.clientIdRef}/${workItem.workItemSlug}/`}
             className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
           >
             Show {workItem.workItemName}

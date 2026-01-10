@@ -4,35 +4,26 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import ImageUpload from "@/components/common/ImageUpload";
-import TipTapEditor from "@/components/common/TiptapEditor";
-import { ClientType } from "@/utils/workTypes";
+import { WorkDetail } from "@/utils/workTypes";
 import Image from "next/image";
 
-const ClientSchema = Yup.object({
-  _id: Yup.string(),
-  haveSingleWorkDetails: Yup.boolean(),
-  clientName: Yup.string()
-    .min(2, "Too short")
-    .required("Client name is required"),
-
-  clientImage: Yup.string()
-    .url("Must be a valid URL")
-    .required("Client image is required"),
-
-  clientDescriptionText: Yup.string()
-    .min(10, "Minimum 10 characters")
-    .required("Description is required"),
-
-  clientSlug: Yup.string()
-    .matches(/^[a-z0-9-]+$/, "Slug must be lowercase and hyphen-separated")
+const workItemSchema = Yup.object({
+  workDetailName: Yup.string().required("Required"),
+  workDetailImage: Yup.string().url("Invalid image URL").required("Required"),
+  workDetailDescription: Yup.string(),
+  workDetailDoubleSection: Yup.boolean(),
+  clientIdRef: Yup.string().nullable(),
+  workItemIdRef: Yup.string().nullable(),
+  workDetailSlug: Yup.string()
+    .matches(/^[a-z0-9-]+$/, "Slug must be lowercase & hyphen-separated")
     .required("Slug is required"),
 });
 
-const ClientForm: React.FC<{
-  initialValues: ClientType;
+const WorkDetailForm: React.FC<{
+  initialValues: WorkDetail;
   onSubmit: (
-    values: ClientType,
-    formikHelpers: FormikHelpers<ClientType>
+    values: WorkDetail,
+    formikHelpers: FormikHelpers<WorkDetail>
   ) => Promise<void>;
   modalClose?: () => void;
 }> = ({ initialValues, onSubmit, modalClose }) => {
@@ -40,63 +31,54 @@ const ClientForm: React.FC<{
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
       <Formik
         initialValues={initialValues}
-        validationSchema={ClientSchema}
+        validationSchema={workItemSchema}
         onSubmit={onSubmit}
       >
         {({ isSubmitting, setFieldValue, values, errors, touched }) => (
           <Form className="space-y-4">
-            <Field type="hidden" name="_id" />
-            <div className="flex items-center">
-              <label className="flex items-center gap-2">
-                <Field
-                  name="haveSingleWorkDetails"
-                  type="checkbox"
-                  className="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500"
-                />
-                <span className="text-sm">
-                  Have single work item details only?
-                </span>
-              </label>
-            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Client Name
+                Work detail name
               </label>
               <Field
-                name="clientName"
+                name="workDetailName"
                 className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
               <ErrorMessage
-                name="clientName"
+                name="workDetailName"
                 component="p"
                 className="text-sm text-red-500 mt-1"
               />
             </div>
 
-            {/* Client Image */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Client Image URL
+                Work Detail image
               </label>
               <div className="flex">
                 <div className="flex-1">
                   <Field
-                    name="clientImage"
+                    name={`workDetailImage`}
                     className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     disabled={true}
+                  />
+                  <ErrorMessage
+                    name={`workDetailImage`}
+                    component="p"
+                    className="text-sm text-red-500 mt-1"
                   />
                 </div>
                 <div className="mt-1">
                   <ImageUpload
-                    onSuccess={(url) => setFieldValue("clientImage", url)}
+                    onSuccess={(url) => setFieldValue(`workDetailImage`, url)}
                   />
                 </div>
 
                 {/* Preview */}
-                {values.clientImage && (
+                {values.workDetailImage && (
                   <div className="mt-1">
                     <Image
-                      src={values.clientImage}
+                      src={values.workDetailImage}
                       alt="Preview"
                       width={50}
                       height={40}
@@ -105,43 +87,77 @@ const ClientForm: React.FC<{
                   </div>
                 )}
               </div>
-
-              <ErrorMessage
-                name="clientImage"
-                component="p"
-                className="text-sm text-red-500 mt-1"
-              />
             </div>
 
-            {/* Description */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                {"Description (for left side)"}
+            {/* Checkbox */}
+            <div className="p-4 border border-black relative mt-12">
+              <h2 className="absolute -top-6 translate-y-1/2 bg-white">
+                Two section view for work detail
+              </h2>
+              <label className="flex items-center gap-2">
+                <Field
+                  type="checkbox"
+                  name="workDetailDoubleSection"
+                  className="h-4 w-4"
+                />
+                <span className="text-sm">Enable double view in a row</span>
               </label>
-              <TipTapEditor
-                value={values.clientDescriptionText}
-                onChange={(val) => setFieldValue("clientDescriptionText", val)}
-                error={errors.clientDescriptionText}
-                touched={touched.clientDescriptionText}
-              />
+
+              <div>
+                <div className="flex">
+                  <div className="flex-1">
+                    <Field
+                      name={`workDetailDescription`}
+                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                      disabled={true}
+                    />
+                    <ErrorMessage
+                      name={`workDetailDescription`}
+                      component="p"
+                      className="text-sm text-red-500 mt-1"
+                    />
+                  </div>
+                  <div className="mt-1">
+                    <ImageUpload
+                      onSuccess={(url) =>
+                        setFieldValue(`workDetailDescription`, url)
+                      }
+                    />
+                  </div>
+
+                  {/* Preview */}
+                  {values.workDetailDescription && (
+                    <div className="mt-1">
+                      <img
+                        src={values.workDetailDescription}
+                        alt="Preview"
+                        className="h-10 rounded-lg object-cover"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* Slug */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Client Slug
+                Work item access path name
               </label>
               <Field
-                name="clientSlug"
-                placeholder="example-client-name"
+                name="workDetailSlug"
+                placeholder="Work item access path name"
                 className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
               <ErrorMessage
-                name="clientSlug"
+                name="workDetailSlug"
                 component="p"
                 className="text-sm text-red-500 mt-1"
               />
             </div>
+
+            <Field type="hidden" name="workItemIdRef" />
+            <Field type="hidden" name="clientIdRef" />
 
             {/* Submit */}
             <button
@@ -163,7 +179,6 @@ const ClientForm: React.FC<{
             ) : (
               <button
                 type="reset"
-                disabled={false}
                 className="p-3 ml-4 cursor-pointer bg-red-800 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50"
               >
                 {"Clear"}
@@ -176,4 +191,4 @@ const ClientForm: React.FC<{
   );
 };
 
-export default ClientForm;
+export default WorkDetailForm;

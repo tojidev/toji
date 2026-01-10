@@ -6,14 +6,14 @@ import { ClientType } from "@/utils/workTypes";
 import BackButton from "@/components/common/BackButton";
 import Modal from "../../admin-components/Modal";
 import { DeleteResponse } from "@/utils/types";
-import ClientEditForm from "./ClientEditForm";
 import { clientInitialValues } from "@/data/static";
+import EditClient from "./EditClient";
 
 const ClientList: React.FC = () => {
   const { get, del, loading } = useAxios();
   const [clients, setClients] = useState<ClientType[]>([]);
   const [formIntialValue, setFormInitialValue] =
-    useState<Omit<ClientType, "_id">>(clientInitialValues);
+    useState<ClientType>(clientInitialValues);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const ClientList: React.FC = () => {
     fetchClients();
   }, []);
 
-  const handleEdit = (client: Omit<ClientType, "_id">) => {
+  const handleEdit = (client: ClientType) => {
     if (!client.haveSingleWorkDetails) {
       client.haveSingleWorkDetails = false;
     }
@@ -105,7 +105,7 @@ const ClientList: React.FC = () => {
       <BackButton backLink={`/admin/`} />
 
       <Modal isOpen={open} onClose={() => setOpen(false)} title={`Edit Client`}>
-        <ClientEditForm
+        <EditClient
           initialValues={formIntialValue}
           modalClose={() => setOpen(false)}
         />

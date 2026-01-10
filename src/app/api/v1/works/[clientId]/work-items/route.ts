@@ -37,6 +37,14 @@ export async function POST(request: NextRequest) {
     workItemSlug,
   } = await request.json();
 
+  console.log({
+    workItemName,
+    workItemImage,
+    workItemDescription,
+    clientIdRef,
+    workItemSlug,
+  });
+
   const workItem = new WorkItem({
     workItemName,
     workItemImage,

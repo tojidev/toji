@@ -44,7 +44,7 @@ const WorkDetailCard: React.FC<WorkItemCardProps> = ({
 
       <td className="p-4 border-b border-slate-200 py-5  whitespace-wrap overflow-hidden text-ellipsis max-w-sm">
         <h3>
-          Double Section = {workDetail.workDetailDoubleSection.toString()}
+          Double Section - {workDetail.workDetailDoubleSection ? "Yes" : "No"}
         </h3>
         <p className="text-sm text-slate-500 ">
           {workDetail.workDetailDescription}
@@ -53,10 +53,10 @@ const WorkDetailCard: React.FC<WorkItemCardProps> = ({
 
       <td className="p-4 border-b border-slate-200 py-5">
         <p className="text-sm text-slate-500">
-          {workDetail.clientIdRef} {" >> "}
+          {workDetail.clientIdRef} {" > "}
         </p>
         <p className="text-sm text-slate-500">
-          {workDetail.workItemIdRef} {" >> "}
+          {workDetail.workItemIdRef} {" > "}
         </p>
         <p className="block font-semibold text-sm text-slate-800">
           {workDetail.workDetailSlug}

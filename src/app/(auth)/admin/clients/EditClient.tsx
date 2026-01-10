@@ -4,36 +4,33 @@ import React from "react";
 import { FormikHelpers } from "formik";
 import { useAxios } from "@/hooks/useAxios";
 import { toast } from "react-toastify";
-import { WorkDetail } from "@/utils/workTypes";
-import WorkDetailForm from "./WorkDetailForm";
+import { ClientType } from "@/utils/workTypes";
+import ClientForm from "./ClientForm";
 
-const EditWorkDetails: React.FC<{
-  clientId: string;
-  workItemId: string;
-  initialValues: WorkDetail;
+const EditClient: React.FC<{
+  initialValues: ClientType;
   modalClose: () => void;
-}> = ({ clientId, workItemId, initialValues, modalClose }) => {
+}> = ({ initialValues, modalClose }) => {
   const { put, loading } = useAxios();
 
   const handleSubmit = async (
-    values: WorkDetail,
-    { resetForm }: FormikHelpers<WorkDetail>
+    values: ClientType,
+    { resetForm }: FormikHelpers<ClientType>
   ) => {
     console.log("Form Data:", JSON.stringify(values), loading);
-    const updatedWorkDetail = await put(
-      `/works/${clientId}/work-items/${workItemId}/work-details/${initialValues.workDetailSlug}`,
-      values
-    );
-    console.log(updatedWorkDetail);
+    const addedWork = await put(`/works/${initialValues.clientSlug}`, values);
+    console.log(addedWork);
     resetForm();
     modalClose();
     toast.success("New client is added!");
     // return addedWork;
   };
 
+  console.log(initialValues);
+
   return (
     <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
-      <WorkDetailForm
+      <ClientForm
         initialValues={initialValues}
         onSubmit={handleSubmit}
         modalClose={modalClose}
@@ -42,4 +39,4 @@ const EditWorkDetails: React.FC<{
   );
 };
 
-export default EditWorkDetails;
+export default EditClient;

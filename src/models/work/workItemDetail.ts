@@ -1,35 +1,44 @@
 import mongoose, { Schema } from "mongoose";
 
-const workItemSchema = new Schema({
-  workDetailName: String,
-  workDetailImage: String,
-  workDetailDoubleSection: Boolean,
-  workDetailDescription: String,
-  workItemIdRef: String,
-  clientIdRef: String,
-  workDetailSlug: String,
-});
+const workDetailSchema = new Schema(
+  {
+    workDetailName: String,
+    workDetailImage: String,
+    workDetailDoubleSection: Boolean,
+    workDetailDescription: String,
+
+    workItemIdRef: {
+      type: String,
+      required: true,
+      index: true,
+    },
+
+    clientIdRef: {
+      type: String,
+      required: true,
+      index: true,
+    },
+
+    workDetailSlug: { type: String, unique: true, index: true },
+  },
+  { timestamps: true }
+);
 
 const WorkItemDetail =
   mongoose.models.workItemDetail ||
-  mongoose.model("workItemDetail", workItemSchema);
+  mongoose.model("workItemDetail", workDetailSchema);
 
 export default WorkItemDetail;
 
 // import mongoose, { Schema } from "mongoose";
 
 // const workItemSchema = new Schema({
-//   workDetailLeftSectionContent: String,
-//   workDetailRightSectionContentSingle: [
-//     {
-//       workDetailImage: String,
-//       workDetailDescription: String,
-//     },
-//   ],
-//   workDetailRightSectionContentDouble: Boolean,
-//   clientIdRef: String,
+//   workDetailName: String,
+//   workDetailImage: String,
+//   workDetailDoubleSection: Boolean,
+//   workDetailDescription: String,
 //   workItemIdRef: String,
-//   workDetailIdRef: String,
+//   clientIdRef: String,
 //   workDetailSlug: String,
 // });
 

@@ -1,5 +1,5 @@
 export interface ClientType {
-  _id: string;
+  _id?: string;
   haveSingleWorkDetails: boolean;
   clientName: string;
   clientImage: string;
@@ -8,7 +8,7 @@ export interface ClientType {
 }
 
 export interface WorkItemTypes {
-  _id: string;
+  _id?: string;
   workItemName: string;
   workItemImage: string;
   workItemDescription: string;
@@ -17,7 +17,7 @@ export interface WorkItemTypes {
 }
 
 export interface WorkDetail {
-  _id: string;
+  _id?: string;
   workDetailName: string;
   workDetailImage: string;
   workDetailDoubleSection: boolean;

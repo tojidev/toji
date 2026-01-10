@@ -98,26 +98,32 @@ export const jobItemsDetails = {
   ],
 };
 
-export const clientInitialValues: Omit<ClientType, "_id"> = {
+export const clientInitialValues: ClientType = {
   clientName: "",
   clientImage: "",
   clientDescriptionText: "",
   haveSingleWorkDetails: false,
   clientSlug: "",
 };
-export const workItemInitialValues: Omit<WorkItemTypes, "_id"> = {
-  workItemName: "",
-  workItemImage: "",
-  workItemDescription: "",
-  clientIdRef: "",
-  workItemSlug: "",
-};
+
+export function workItemInitialValues(clientId: string) {
+  const initialValues: WorkItemTypes = {
+    _id: "",
+    workItemName: "",
+    workItemImage: "",
+    workItemDescription: "",
+    clientIdRef: clientId,
+    workItemSlug: "",
+  };
+
+  return initialValues;
+}
 
 export function workDetailInitialValue(
   clientName: string,
   workItemName: string
 ) {
-  const initialValues: Omit<WorkDetail, "_id"> = {
+  const initialValues: WorkDetail = {
     workDetailName: "",
     workDetailImage: "",
     workDetailDoubleSection: false,
