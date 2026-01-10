@@ -37,7 +37,7 @@ const ClientForm: React.FC<{
   modalClose?: () => void;
 }> = ({ initialValues, onSubmit, modalClose }) => {
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
+    <>
       <Formik
         initialValues={initialValues}
         validationSchema={ClientSchema}
@@ -172,7 +172,7 @@ const ClientForm: React.FC<{
           </Form>
         )}
       </Formik>
-    </div>
+    </>
   );
 };
 

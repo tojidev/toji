@@ -50,21 +50,21 @@ const WorkItemCard: React.FC<WorkItemCardProps> = ({
         <td className="text-right">
           <Link
             href={`/admin/clients/${workItem.clientIdRef}/${workItem.workItemSlug}/`}
-            className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
+            className="rounded-md bg-blue-600 p-3 m-2 text-sm leading-tight text-white hover:bg-blue-700 cursor-pointer"
           >
-            Show {workItem.workItemName}
+            Show
           </Link>
 
           <button
             onClick={() => onEdit?.(workItem)}
-            className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
+            className="rounded-md bg-blue-600 p-3 m-2 text-sm leading-tight text-white hover:bg-blue-700 cursor-pointer"
           >
             Edit
           </button>
 
           <button
             onClick={() => onDelete?.(workItem.workItemSlug)}
-            className="rounded-md bg-red-600 p-3 m-2 text-sm text-white hover:bg-red-700 cursor-pointer"
+            className="rounded-md bg-red-600 p-3 m-2 text-sm leading-tight text-white hover:bg-red-700 cursor-pointer"
           >
             Delete
           </button>

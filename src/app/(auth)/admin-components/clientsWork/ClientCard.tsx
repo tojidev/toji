@@ -52,21 +52,21 @@ const ClientCard: React.FC<ClientCardProps> = ({
         <td className="text-right">
           <Link
             href={`/admin/clients/${client.clientSlug}/`}
-            className="rounded-md bg-blue-600 p-3 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
+            className="rounded-md bg-blue-600 p-3 mr-2 text-sm leading-tight text-white hover:bg-blue-700 cursor-pointer"
           >
-            Show {client.clientName}
+            Show
           </Link>
 
           <button
             onClick={() => onEdit?.(client)}
-            className="rounded-md bg-blue-600 p-2 m-2 text-sm text-white hover:bg-blue-700 cursor-pointer"
+            className="rounded-md bg-blue-600 p-3 mr-2 text-sm leading-tight text-white hover:bg-blue-700 cursor-pointer"
           >
             Edit
           </button>
 
           <button
             onClick={() => onDelete?.(client.clientSlug)}
-            className="rounded-md bg-red-600 p-2 m-2 text-sm text-white hover:bg-red-700 cursor-pointer"
+            className="rounded-md bg-red-600 p-3 mr-2 text-sm leading-tight text-white hover:bg-red-700 cursor-pointer"
           >
             Delete
           </button>

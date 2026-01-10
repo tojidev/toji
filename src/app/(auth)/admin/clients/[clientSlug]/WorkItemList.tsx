@@ -108,7 +108,7 @@ const WorkItemList: React.FC<{ clientId: string }> = ({ clientId }) => {
       <Modal
         isOpen={open}
         onClose={() => setOpen(false)}
-        title="Edit work item"
+        title="Edit Work Item"
       >
         <EditWorkItem
           clientId={clientId}

@@ -28,13 +28,13 @@ const WorkDetailForm: React.FC<{
   modalClose?: () => void;
 }> = ({ initialValues, onSubmit, modalClose }) => {
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
+    <>
       <Formik
         initialValues={initialValues}
         validationSchema={workItemSchema}
         onSubmit={onSubmit}
       >
-        {({ isSubmitting, setFieldValue, values, errors, touched }) => (
+        {({ isSubmitting, setFieldValue, values }) => (
           <Form className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -128,9 +128,11 @@ const WorkDetailForm: React.FC<{
                   {/* Preview */}
                   {values.workDetailDescription && (
                     <div className="mt-1">
-                      <img
+                      <Image
                         src={values.workDetailDescription}
                         alt="Preview"
+                        width={50}
+                        height={40}
                         className="h-10 rounded-lg object-cover"
                       />
                     </div>
@@ -187,7 +189,7 @@ const WorkDetailForm: React.FC<{
           </Form>
         )}
       </Formik>
-    </div>
+    </>
   );
 };
 
