@@ -16,11 +16,11 @@ export default async function Home() {
 
   return (
     <>
-      <ContentItemContainer
+      {/* <ContentItemContainer
         clients={clientFetch}
         pageName="Work"
         pageLink="/work/"
-      />
+      /> */}
       <PageContainer
         LeftContents={<LeftStaticContent />}
         RightcontentItems={
