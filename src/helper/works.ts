@@ -5,7 +5,7 @@ import WorkItem from "@/models/work/workItem";
 import WorkItemDetail from "@/models/work/workItemDetail";
 
 /* -------------------- Clients -------------------- */
-// await connectDb();
+await connectDb();
 
 export async function getClients(): Promise<ClientType[]> {
   return Client.find().lean();
