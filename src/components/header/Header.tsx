@@ -12,8 +12,8 @@ const Header = () => {
   return (
     <>
       {/* Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white">
-        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white px-4">
+        <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between">
           {/* Logo */}
           <Link href="/" className="text-xl font-bold">
             <Image
