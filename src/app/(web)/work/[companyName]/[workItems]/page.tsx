@@ -22,7 +22,6 @@ async function WorkItems({
   params: Promise<{ companyName: string; workItems: string }>;
 }) {
   const { companyName, workItems } = await params;
-  // const clientDetail = await getClientBySlug(companyName);
   const workItemData = await getWorkItemBySlug(companyName, workItems);
   const workDetails = await getWorkDetails(companyName, workItems);
 

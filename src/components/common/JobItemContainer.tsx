@@ -19,8 +19,8 @@ const JobItemContainer: React.FC<{
                   <Image
                     src={item.workItemImage}
                     alt={item.workItemName}
-                    width={100}
-                    height={50}
+                    width={1000}
+                    height={640}
                     style={{ width: "100%", height: "auto" }}
                   />
                   <div className="py-3 font-semibold">{item.workItemName}</div>
