@@ -20,7 +20,7 @@ const Header = () => {
               src="/images/toji-logo.svg"
               height={50}
               width={100}
-              className="h-12 mr-3 sm:h-15"
+              className="h-12 mr-3 sm:h-15 pt-2.5"
               alt="www.toji.co.in"
             />
           </Link>
