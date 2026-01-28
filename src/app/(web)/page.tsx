@@ -4,6 +4,8 @@ import ContentItemContainer from "@/components/common/ContentItemContainer";
 
 import { getClients } from "@/helper/works";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const clientsData = await getClients();
 

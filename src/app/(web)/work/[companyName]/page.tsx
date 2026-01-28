@@ -5,6 +5,8 @@ import { getClientBySlug, getWorkDetails, getWorkItems } from "@/helper/works";
 import SingleContentContainer from "@/components/common/SingleContentContainer";
 import { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title:
     "Be the better business. We can help. | Toji Communication Consultancy",
