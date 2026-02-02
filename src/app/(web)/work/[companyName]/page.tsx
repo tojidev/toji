@@ -4,6 +4,7 @@ import LeftWorkContent from "@/components/work/LeftWorkContent";
 import { getClientBySlug, getWorkDetails, getWorkItems } from "@/helper/works";
 import SingleContentContainer from "@/components/common/SingleContentContainer";
 import { Metadata } from "next";
+import { classesLeftContainer, classesRightContainer } from "@/data/static";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +48,13 @@ export default async function ClientPage({
     }
   }
 
+  const leftContainerClass = clientDetail.haveSingleWorkDetails
+    ? "w-full sm:w-1/4 sm:pr-8"
+    : classesLeftContainer;
+  const rightContainerClass = clientDetail.haveSingleWorkDetails
+    ? "w-full sm:w-3/4"
+    : classesRightContainer;
+
   return (
     <>
       <PageContainer
@@ -57,6 +65,8 @@ export default async function ClientPage({
           />
         }
         RightcontentItems={manageWorkDetails()}
+        classLeftContainer={leftContainerClass}
+        classRightContainer={rightContainerClass}
       />
     </>
   );
