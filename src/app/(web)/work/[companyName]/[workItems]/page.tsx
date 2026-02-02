@@ -27,6 +27,9 @@ async function WorkItems({
   const workItemData = await getWorkItemBySlug(companyName, workItems);
   const workDetails = await getWorkDetails(companyName, workItems);
 
+  const classesLeftContainer = "w-full sm:w-1/4 sm:pr-8";
+  const classesRightContainer = "w-full sm:w-3/4";
+
   return (
     <>
       <PageContainer
@@ -43,6 +46,8 @@ async function WorkItems({
             workDetails={workDetails}
           />
         }
+        classLeftContainer={classesLeftContainer}
+        classRightContainer={classesRightContainer}
       />
     </>
   );

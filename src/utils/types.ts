@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 export type PageContainerProps = {
   LeftContents: ReactNode;
   RightcontentItems: ReactNode;
+  classLeftContainer?: string;
+  classRightContainer?: string;
 };
 
 export type WorkItem = {

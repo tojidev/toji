@@ -11,7 +11,7 @@ const SingleContentContainer: React.FC<{
 }> = ({ workDetails, workTitle, parentLink }) => {
   return (
     <div>
-      <div className="italic-text text-xl mb-2">{workTitle}</div>
+      {/* <div className="italic-text text-xl mb-2">{workTitle}</div> */}
       {workDetails.length ? (
         <>
           <div className="gap-4">
