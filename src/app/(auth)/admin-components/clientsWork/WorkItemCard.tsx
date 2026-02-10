@@ -1,9 +1,11 @@
 "use client";
 
-import { WorkItemTypes } from "@/utils/workTypes";
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
+import { WorkItemTypes } from "@/utils/workTypes";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface WorkItemCardProps {
   workItem: WorkItemTypes;
@@ -16,10 +18,27 @@ const WorkItemCard: React.FC<WorkItemCardProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: workItem._id ?? workItem.workItemSlug,
+    });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
   return (
     <>
-      <tr className="hover:bg-slate-50">
-        <td className="p-4 border-b border-slate-200 py-5">
+      <tr
+        ref={setNodeRef} // ⭐ REQUIRED
+        style={style}
+        className="hover:bg-slate-50"
+      >
+        <td
+          className="p-4 border-b border-slate-200 py-5 cursor-grab"
+          {...attributes}
+          {...listeners}
+        >
           <Image
             src={workItem.workItemImage}
             alt={workItem.workItemName}

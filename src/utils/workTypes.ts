@@ -3,6 +3,7 @@ export interface ClientType {
   haveSingleWorkDetails: boolean;
   clientName: string;
   clientImage: string;
+  position?: number;
   clientDescriptionText: string;
   clientSlug: string;
 }
@@ -12,6 +13,7 @@ export interface WorkItemTypes {
   workItemName: string;
   workItemImage: string;
   workItemDescription: string;
+  position?: number;
   clientIdRef: string;
   workItemSlug: string;
 }
@@ -22,6 +24,7 @@ export interface WorkDetail {
   workDetailImage: string;
   workDetailDoubleSection: boolean;
   workDetailDescription: string;
+  position?: number;
   workItemIdRef: string;
   clientIdRef: string;
   workDetailSlug: string;

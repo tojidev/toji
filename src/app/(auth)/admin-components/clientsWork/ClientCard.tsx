@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ClientType } from "@/utils/workTypes";
 
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 interface ClientCardProps {
   client: ClientType;
   onEdit?: (client: ClientType) => void;
@@ -16,10 +19,28 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(function ClientCard({
   onEdit,
   onDelete,
 }) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: client._id ?? client.clientSlug,
+    });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
     <>
-      <tr className="hover:bg-slate-50">
-        <td className="p-4 border-b border-slate-200 py-5">
+      <tr
+        ref={setNodeRef} // ⭐ REQUIRED
+        style={style}
+        className="hover:bg-slate-50"
+      >
+        <td
+          className="p-4 border-b border-slate-200 py-5 cursor-grab"
+          {...attributes}
+          {...listeners}
+        >
           <Image
             src={client.clientImage}
             alt={client.clientName}

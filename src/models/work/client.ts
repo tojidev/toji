@@ -6,26 +6,18 @@ const clientSchema = new Schema(
     clientImage: String,
     clientDescriptionText: String,
     haveSingleWorkDetails: Boolean,
+
+    position: {
+      type: Number,
+      default: 0,
+      index: true,
+    },
     clientSlug: { type: String, unique: true, index: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Client =
   mongoose.models.clients || mongoose.model("clients", clientSchema);
 
 export default Client;
-
-// import mongoose, { Schema } from "mongoose";
-
-// const workSchema = new Schema({
-//   clientName: String,
-//   clientImage: String,
-//   clientDescriptionText: String,
-//   haveSingleWorkDetails: Boolean,
-//   clientSlug: String,
-// });
-
-// const Client = mongoose.models.clients || mongoose.model("clients", workSchema);
-
-// export default Client;

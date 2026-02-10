@@ -5,22 +5,20 @@ import { NextRequest, NextResponse } from "next/server";
 
 connectDb();
 
-// workItems
-
 export async function GET(
   request: NextRequest,
-  { params }: { params: ClientParams }
+  { params }: { params: ClientParams },
 ) {
   const { clientId } = await params;
 
   let workItem = [];
   try {
-    workItem = await WorkItem.find({ clientIdRef: clientId });
+    workItem = await WorkItem.find({ clientIdRef: clientId }).sort({
+      position: 1,
+    });
   } catch (error) {
-    console.log("Not able to find the workItem");
-    console.log(error);
     return NextResponse.json({
-      message: "Failed to get workItem data",
+      message: `Failed to get workItem data, ${error}`,
       success: false,
     });
   }
@@ -65,33 +63,3 @@ export async function POST(request: NextRequest) {
     });
   }
 }
-
-// export async function POST(request: NextRequest) {
-//   const {
-//     workItemLeftSectionContent,
-//     workItemRightSectionContent,
-//     clientIdRef,
-//     workItemIdRef,
-//     workItemSlug,
-//   } = await request.json();
-
-//   const workItem = new WorkItem({
-//     workItemLeftSectionContent,
-//     workItemRightSectionContent,
-//     clientIdRef,
-//     workItemIdRef,
-//     workItemSlug,
-//   });
-
-//   try {
-//     const newworkItem = await workItem.save();
-//     return NextResponse.json(newworkItem, { status: 201 });
-//   } catch (error) {
-//     console.log("Faild to create new workItem");
-//     console.log(error);
-//     return NextResponse.json({
-//       message: "Failed to create new workItem...",
-//       status: false,
-//     });
-//   }
-// }

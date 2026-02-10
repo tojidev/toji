@@ -1,4 +1,5 @@
 "use client";
+
 import React, { memo, useEffect, useState } from "react";
 import { useAxios } from "@/hooks/useAxios";
 import ClientCard from "../../admin-components/clientsWork/ClientCard";
@@ -8,9 +9,16 @@ import Modal from "../../admin-components/Modal";
 import { DeleteResponse } from "@/utils/types";
 import { clientInitialValues } from "@/data/static";
 import EditClient from "./EditClient";
+import { DndContext, closestCorners } from "@dnd-kit/core";
+import type { DragEndEvent } from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
 
 const ClientList: React.FC = () => {
-  const { get, del, loading } = useAxios();
+  const { get, put, del, loading } = useAxios();
   const [clients, setClients] = useState<ClientType[]>([]);
   const [formIntialValue, setFormInitialValue] =
     useState<ClientType>(clientInitialValues);
@@ -44,9 +52,37 @@ const ClientList: React.FC = () => {
 
     if (deletedRes?.success) {
       setClients((prevClient) =>
-        prevClient.filter((client) => client.clientSlug !== slug)
+        prevClient.filter((client) => client.clientSlug !== slug),
       );
     }
+  };
+
+  // ✅ DRAG END
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = clients.findIndex((c) => c._id === active.id);
+    const newIndex = clients.findIndex((c) => c._id === over.id);
+
+    const newItems = arrayMove(clients, oldIndex, newIndex);
+
+    // optimistic UI
+    setClients(newItems);
+
+    // save to DB
+    const payload = newItems.map((c, index) => ({
+      id: c._id,
+      position: index,
+      clientSlug: c.clientSlug,
+    }));
+
+    const reorderItems = { itemName: "clients", payload };
+
+    console.log(reorderItems);
+
+    await put("/works/reorder", reorderItems);
   };
 
   if (loading) {
@@ -60,47 +96,57 @@ const ClientList: React.FC = () => {
   return (
     <div>
       <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-        <table className="w-full text-left table-auto min-w-max">
-          <thead>
-            <tr>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Image
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Client Name
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Client Description
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Slug or Path
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500 text-right">
-                  Controls
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {clients.map((client) => (
-              <ClientCard
-                key={client._id}
-                client={client}
-                onEdit={(client) => handleEdit(client)}
-                onDelete={(slug) => handleDelete(slug)}
-              />
-            ))}
-          </tbody>
-        </table>
+        <DndContext
+          collisionDetection={closestCorners}
+          onDragEnd={handleDragEnd}
+        >
+          <table className="w-full text-left table-auto min-w-max">
+            <thead>
+              <tr>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500">
+                    Image
+                  </p>
+                </th>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500">
+                    Client Name
+                  </p>
+                </th>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500">
+                    Client Description
+                  </p>
+                </th>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500">
+                    Slug or Path
+                  </p>
+                </th>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500 text-right">
+                    Controls
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <SortableContext
+                items={clients.map((c) => c._id!)}
+                strategy={verticalListSortingStrategy}
+              >
+                {clients.map((client) => (
+                  <ClientCard
+                    key={client._id}
+                    client={client}
+                    onEdit={(client) => handleEdit(client)}
+                    onDelete={(slug) => handleDelete(slug)}
+                  />
+                ))}
+              </SortableContext>
+            </tbody>
+          </table>
+        </DndContext>
       </div>
       <BackButton backLink={`/admin/`} />
 

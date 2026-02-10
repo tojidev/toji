@@ -9,12 +9,18 @@ import { DeleteResponse } from "@/utils/types";
 import Modal from "@/app/(auth)/admin-components/Modal";
 import { workDetailInitialValue } from "@/data/static";
 import EditWorkDetails from "./EditWorkDetails";
+import { closestCorners, DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 const WorkDetailList: React.FC<{ clientId: string; workItemId: string }> = ({
   clientId,
   workItemId,
 }) => {
-  const { get, del, loading } = useAxios();
+  const { get, del, put, loading } = useAxios();
   const [workDetail, setWorkDetail] = useState<WorkDetail[]>([]);
   const [formIntialValue, setFormInitialValue] = useState<
     Omit<WorkDetail, "_id">
@@ -25,7 +31,7 @@ const WorkDetailList: React.FC<{ clientId: string; workItemId: string }> = ({
     const fetchClients = async () => {
       try {
         const workData = await get<WorkDetail[]>(
-          `/works/${clientId}/work-items/${workItemId}/work-details`
+          `/works/${clientId}/work-items/${workItemId}/work-details`,
         );
         setWorkDetail(workData);
         console.log("Clients fetched:", workData);
@@ -44,14 +50,42 @@ const WorkDetailList: React.FC<{ clientId: string; workItemId: string }> = ({
 
   const handleDelete = async (slug: string) => {
     const deletedRes = await del<DeleteResponse>(
-      `/works/${clientId}/work-items/${workItemId}/work-details/${slug}`
+      `/works/${clientId}/work-items/${workItemId}/work-details/${slug}`,
     );
 
     if (deletedRes?.success) {
       setWorkDetail((prevWorkItems) =>
-        prevWorkItems.filter((workItem) => workItem.workDetailSlug !== slug)
+        prevWorkItems.filter((workItem) => workItem.workDetailSlug !== slug),
       );
     }
+  };
+
+  // ✅ DRAG END
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = workDetail.findIndex((c) => c._id === active.id);
+    const newIndex = workDetail.findIndex((c) => c._id === over.id);
+
+    const newItems = arrayMove(workDetail, oldIndex, newIndex);
+
+    // optimistic UI
+    setWorkDetail(newItems);
+
+    // save to DB
+    const payload = newItems.map((c, index) => ({
+      id: c._id,
+      position: index,
+      workDetailSlug: c.workDetailSlug,
+    }));
+
+    const reorderItems = { itemName: "workDetails", payload };
+
+    console.log(reorderItems);
+
+    await put("/works/reorder", reorderItems);
   };
 
   if (loading) {
@@ -65,47 +99,57 @@ const WorkDetailList: React.FC<{ clientId: string; workItemId: string }> = ({
   return (
     <div>
       <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border">
-        <table className="w-full text-left table-auto min-w-max">
-          <thead>
-            <tr>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Image
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Name
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Description
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500">
-                  Slug or Path
-                </p>
-              </th>
-              <th className="p-4 border-b border-slate-300 bg-slate-50">
-                <p className="block text-sm font-normal leading-none text-slate-500 text-right">
-                  Controls
-                </p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {workDetail.map((workDetailData) => (
-              <WorkDetailCard
-                key={workDetailData._id}
-                workDetail={workDetailData}
-                onEdit={(c) => handleEdit(c)}
-                onDelete={(slug) => handleDelete(slug)}
-              />
-            ))}
-          </tbody>
-        </table>
+        <DndContext
+          collisionDetection={closestCorners}
+          onDragEnd={handleDragEnd}
+        >
+          <table className="w-full text-left table-auto min-w-max">
+            <thead>
+              <tr>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500">
+                    Image
+                  </p>
+                </th>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500">
+                    Name
+                  </p>
+                </th>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500">
+                    Description
+                  </p>
+                </th>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500">
+                    Slug or Path
+                  </p>
+                </th>
+                <th className="p-4 border-b border-slate-300 bg-slate-50">
+                  <p className="block text-sm font-normal leading-none text-slate-500 text-right">
+                    Controls
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <SortableContext
+                items={workDetail.map((c) => c._id!)}
+                strategy={verticalListSortingStrategy}
+              >
+                {workDetail.map((workDetailData) => (
+                  <WorkDetailCard
+                    key={workDetailData._id}
+                    workDetail={workDetailData}
+                    onEdit={(c) => handleEdit(c)}
+                    onDelete={(slug) => handleDelete(slug)}
+                  />
+                ))}
+              </SortableContext>
+            </tbody>
+          </table>
+        </DndContext>
       </div>
       <BackButton backLink={`/admin/clients/${clientId}/work-items/`} />
       <Modal

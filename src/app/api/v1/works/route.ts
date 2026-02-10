@@ -10,12 +10,10 @@ export async function GET() {
   let client = [];
 
   try {
-    client = await Client.find();
+    client = await Client.find().sort({ position: 1 });
   } catch (error) {
-    console.log("Not able to find the client");
-    console.log(error);
     return NextResponse.json({
-      message: "Failed to get client data",
+      message: `Failed to get client data ${error}`,
       success: false,
     });
   }

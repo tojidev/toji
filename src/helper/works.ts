@@ -10,7 +10,7 @@ await connectDb();
 export async function getClients(): Promise<ClientType[]> {
   await connectDb();
 
-  return Client.find().lean();
+  return Client.find().sort({ position: 1 }).lean();
 }
 
 export async function getClientBySlug(clientSlug: string): Promise<ClientType> {
@@ -52,7 +52,9 @@ export async function getWorkItems(
 ): Promise<WorkItemTypes[]> {
   await connectDb();
   const clientName = clientSlug.toLowerCase();
-  const clientsWorks = await WorkItem.find({ clientIdRef: clientName }).lean();
+  const clientsWorks = await WorkItem.find({ clientIdRef: clientName })
+    .sort({ position: 1 })
+    .lean();
   return clientsWorks;
 }
 
@@ -85,7 +87,7 @@ export async function getWorkDetails(
   const workDetails = await WorkItemDetail.find({
     clientIdRef: clientName,
     workItemIdRef: workItemName,
-  });
+  }).sort({ position: 1 });
 
   return workDetails;
 }
@@ -108,42 +110,3 @@ export async function getWorkDetailsBySlug(
 
   return workDetails;
 }
-
-// import { serverGet } from "@/lib/apicall";
-// import { Client, WorkDetail, WorkItemTypes } from "@/utils/workTypes";
-
-// export function getClients() {
-//   return serverGet<Client[]>("/works");
-// }
-
-// export function getClientBySlug(clientSlug: string) {
-//   return serverGet<Client>(`/works/${clientSlug.toLowerCase()}`);
-// }
-
-// export function getWorkItems(clientSlug: string) {
-//   return serverGet<WorkItemTypes[]>(
-//     `/works/${clientSlug.toLowerCase()}/work-items`
-//   );
-// }
-
-// export function getWorkItemBySlug(clientSlug: string, workItemSlug: string) {
-//   return serverGet<WorkItemTypes>(
-//     `/works/${clientSlug.toLowerCase()}/work-items/${workItemSlug.toLowerCase()}`
-//   );
-// }
-
-// export function getWorkDetails(clientSlug: string, workItemSlug: string) {
-//   return serverGet<WorkDetail[]>(
-//     `/works/${clientSlug.toLowerCase()}/work-items/${workItemSlug.toLowerCase()}/work-details/`
-//   );
-// }
-
-// export function getWorkDetailsById(
-//   clientSlug: string,
-//   workItemSlug: string,
-//   workDetailSlug: string
-// ) {
-//   return serverGet<WorkDetail>(
-//     `/works/${clientSlug.toLowerCase()}/work-items/${workItemSlug.toLowerCase()}/work-details/${workDetailSlug.toLowerCase()}`
-//   );
-// }

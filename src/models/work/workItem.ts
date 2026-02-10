@@ -5,6 +5,11 @@ const workItemSchema = new Schema(
     workItemName: { type: String, required: true },
     workItemImage: String,
     workItemDescription: String,
+    position: {
+      type: Number,
+      default: 0,
+      index: true,
+    },
 
     clientIdRef: {
       type: String,
@@ -14,7 +19,7 @@ const workItemSchema = new Schema(
 
     workItemSlug: { type: String, unique: true, index: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const WorkItem =

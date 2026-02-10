@@ -21,7 +21,7 @@ const AdminHeader: React.FC<{ token: string }> = ({ token }) => {
           className="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:outline-none"
         >
           <Image
-            src="/images/logo.png"
+            src="/images/toji-logo.svg"
             alt="Admin Avatar"
             width={48}
             height={48}

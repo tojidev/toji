@@ -47,7 +47,7 @@ export function useAxios<T = unknown>() {
 
   const get = async <R = T>(
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<R> => request({ url, method: "GET", ...config }) as Promise<R>;
 
   // const post = (url: string, data?: any, config?: AxiosRequestConfig) =>
@@ -55,14 +55,14 @@ export function useAxios<T = unknown>() {
   const post = async <R = T>(
     url: string,
     data?: T,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<R> =>
     request({ url, method: "POST", data, ...config }) as Promise<R>;
 
   const put = async <R = T>(
     url: string,
     data?: T,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<R> =>
     request({ url, method: "PUT", data, ...config }) as Promise<R>;
   // (url: string, data?: any, config?: AxiosRequestConfig) =>
@@ -72,7 +72,7 @@ export function useAxios<T = unknown>() {
   //   request({ url, method: "DELETE", ...config });
   const del = <R = unknown>(
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<R | null> =>
     request({ url, method: "DELETE", ...config }) as Promise<R>;
 

@@ -9,7 +9,7 @@ connectDb();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: WorkItemParams }
+  { params }: { params: WorkItemParams },
 ) {
   const { clientId, workItemId } = await params;
 
@@ -19,7 +19,7 @@ export async function GET(
     workItem = await WorkItemDetail.find({
       clientIdRef: clientId,
       workItemIdRef: workItemId,
-    });
+    }).sort({ position: 1 });
   } catch (error) {
     console.log("Not able to find the work item detail");
     console.log(error);
