@@ -9,7 +9,17 @@ import { DeleteResponse } from "@/utils/types";
 import Modal from "@/app/(auth)/admin-components/Modal";
 import { workDetailInitialValue } from "@/data/static";
 import EditWorkDetails from "./EditWorkDetails";
-import { closestCorners, DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  closestCorners,
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  MouseSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
@@ -88,6 +98,16 @@ const WorkDetailList: React.FC<{ clientId: string; workItemId: string }> = ({
     await put("/works/reorder", reorderItems);
   };
 
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 5,
+    },
+  });
+  const touchSensor = useSensor(TouchSensor);
+  const keyboardSensor = useSensor(KeyboardSensor);
+
+  const sensors = useSensors(pointerSensor, touchSensor, keyboardSensor);
+
   if (loading) {
     return <p className="text-center text-gray-500">Loading...</p>;
   }
@@ -102,6 +122,7 @@ const WorkDetailList: React.FC<{ clientId: string; workItemId: string }> = ({
         <DndContext
           collisionDetection={closestCorners}
           onDragEnd={handleDragEnd}
+          sensors={sensors}
         >
           <table className="w-full text-left table-auto min-w-max">
             <thead>

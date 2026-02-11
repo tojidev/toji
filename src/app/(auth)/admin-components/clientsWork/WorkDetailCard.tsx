@@ -34,7 +34,7 @@ const WorkDetailCard: React.FC<WorkItemCardProps> = ({
       className="hover:bg-slate-50"
     >
       <td
-        className="p-4 border-b border-slate-200 py-5 cursor-grab"
+        className="p-4 border-b border-slate-200 py-5 cursor-grab touch-none"
         {...attributes}
         {...listeners}
       >
@@ -43,7 +43,7 @@ const WorkDetailCard: React.FC<WorkItemCardProps> = ({
           alt={workDetail.workDetailName}
           width={100}
           height={75}
-          className="w-16 h-16 object-cover rounded"
+          className="w-16 h-16 object-cover rounded touch-none"
         />
       </td>
       <td className="p-4 border-b border-slate-200 py-5">

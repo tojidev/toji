@@ -37,7 +37,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(function ClientCard({
         className="hover:bg-slate-50"
       >
         <td
-          className="p-4 border-b border-slate-200 py-5 cursor-grab"
+          className="p-4 border-b border-slate-200 py-5 cursor-grab touch-none"
           {...attributes}
           {...listeners}
         >
@@ -46,7 +46,7 @@ const ClientCard: React.FC<ClientCardProps> = React.memo(function ClientCard({
             alt={client.clientName}
             width={100}
             height={75}
-            className="w-16 h-16 object-cover rounded"
+            className="w-16 h-16 object-cover rounded touch-none"
           />
         </td>
         <td className="p-4 border-b border-slate-200 py-5">
