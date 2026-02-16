@@ -15,7 +15,7 @@ const EditClient: React.FC<{
 
   const handleSubmit = async (
     values: ClientType,
-    { resetForm }: FormikHelpers<ClientType>
+    { resetForm }: FormikHelpers<ClientType>,
   ) => {
     console.log("Form Data:", JSON.stringify(values), loading);
     const addedWork = await put(`/works/${initialValues.clientSlug}`, values);

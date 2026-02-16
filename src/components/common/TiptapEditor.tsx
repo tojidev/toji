@@ -23,14 +23,14 @@ const TipTapEditor: React.FC<TipTapEditorProps> = ({
       StarterKit.configure({
         paragraph: {
           HTMLAttributes: {
-            class: "mb-4",
+            class: "",
           },
         },
 
         heading: {
           levels: [1, 2, 3, 4],
           HTMLAttributes: {
-            class: "text-3xl font-bold mb-4",
+            class: "text-3xl font-bold",
           },
         },
 
@@ -42,7 +42,7 @@ const TipTapEditor: React.FC<TipTapEditorProps> = ({
 
         italic: {
           HTMLAttributes: {
-            class: "italic-text",
+            class: "text-xl italic-text",
           },
         },
 

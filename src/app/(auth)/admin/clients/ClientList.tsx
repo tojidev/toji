@@ -88,8 +88,6 @@ const ClientList: React.FC = () => {
 
     const reorderItems = { itemName: "clients", payload };
 
-    console.log(reorderItems);
-
     await put("/works/reorder", reorderItems);
   };
 
